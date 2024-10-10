@@ -4,7 +4,6 @@ local opts = { noremap = true, silent = true }
 -- Define the leader
 vim.g.mapleader = " "
 
-
 -- Do things without affecting the registers
 keymap.set("n", "x", '"_x', opts)
 keymap.set("n", "<Leader>p", '"0p', opts)
@@ -38,12 +37,6 @@ keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
 
 -- Jumplist
 keymap.set("n", "<C-m>", "<C-i>", opts)
-
--- New tab
-keymap.set("n", "te", ":tabedit<CR>", opts)
-keymap.set("n", "<tab>", ":tabnext<CR>", opts)
-keymap.set("n", "<s-tab>", ":tabprev<CR>", opts)
-
 -- Split window
 keymap.set("n", "ss", ":split<CR>", opts)
 keymap.set("n", "sv", ":vsplit<CR>", opts)
