@@ -1,5 +1,4 @@
 return {
-  -- Create annotations with one keybind, and jump your cursor in the inserted annotation
   {
     "danymat/neogen",
     keys = {
@@ -55,7 +54,7 @@ return {
     end,
   },
 
-  -- Better increase/descrease
+  -- Better increase/decrease
   {
     "monaqa/dial.nvim",
     -- stylua: ignore
@@ -88,10 +87,28 @@ return {
   },
 
   {
-    "nvim-cmp",
+    "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
     opts = function(_, opts)
       table.insert(opts.sources, { name = "emoji" })
+    end,
+  },
+
+  -- Auto Complete code
+  {
+    "codota/tabnine-nvim",
+    build = "./dl_binaries.sh",
+    config = function()
+      require("tabnine").setup({
+        disable_auto_comment = true,
+        accept_keymap = "<Tab>",
+        dismiss_keymap = "<C-]>",
+        debounce_ms = 800,
+        suggestion_color = { gui = "#808080", cterm = 244 },
+        exclude_filetypes = { "TelescopePrompt", "NvimTree" },
+        log_file_path = nil, -- absolute path to Tabnine log file
+        ignore_certificate_errors = false,
+      })
     end,
   },
 }
