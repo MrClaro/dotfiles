@@ -1,5 +1,5 @@
 
-# MY LAZY VIM CONFIG
+# MY SETUP 2 DEV
 
 ### What you need:
 To apply my configuration, follow the steps below and make sure you have the right environment set up with the necessary tools.
