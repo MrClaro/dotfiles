@@ -5,19 +5,7 @@ local jdtls = require("jdtls")
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = home .. "/jdtls-workspace/" .. project_name
 
-local system_os = ""
-
--- Determine OS
-if vim.fn.has("mac") == 1 then
-	system_os = "mac"
-elseif vim.fn.has("unix") == 1 then
-	system_os = "linux"
-elseif vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
-	system_os = "win"
-else
-	print("OS not found, defaulting to 'linux'")
-	system_os = "linux"
-end
+local system_os = "linux" -- Explicitly set for Arch Linux in WSL
 
 -- Needed for debugging
 local bundles = {
@@ -48,46 +36,41 @@ local config = {
 
 		-- Eclipse jdtls location
 		"-jar",
-		home .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher.jar",
+		vim.fn.glob(home .. "/.local/share/nvim/mason/share/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
 		"-configuration",
 		home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. system_os,
 		"-data",
 		workspace_dir,
 	},
 
-	-- This is the default if not provided, you can remove it. Or adjust as needed.
 	-- One dedicated LSP server & client will be started per unique root_dir
 	root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "build.gradle" }),
 
-	-- Here you can configure eclipse.jdt.ls specific settings
-	-- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+	-- Eclipse.jdt.ls specific settings
 	settings = {
 		java = {
-			-- TODO Replace this with the absolute path to your main java version (JDK 17 or higher)
 			home = "/usr/lib/jvm/java-23-openjdk",
 			eclipse = {
 				downloadSources = true,
 			},
 			configuration = {
 				updateBuildConfiguration = "interactive",
-				-- TODO Update this by adding any runtimes that you need to support your Java projects and removing any that you don't have installed
-				-- The runtime name parameters need to match specific Java execution environments.  See https://github.com/tamago324/nlsp-settings.nvim/blob/2a52e793d4f293c0e1d61ee5794e3ff62bfbbb5d/schemas/_generated/jdtls.json#L317-L334
 				runtimes = {
 					{
 						name = "JavaSE-11",
-						path = "/usr/lib/jvm/java-11-openjdk-amd64",
+						path = "/usr/lib/jvm/java-11-openjdk",
 					},
 					{
 						name = "JavaSE-17",
-						path = "/usr/lib/jvm/java-17-openjdk-amd64",
+						path = "/usr/lib/jvm/java-17-openjdk",
 					},
 					{
 						name = "JavaSE-19",
-						path = "/usr/lib/jvm/java-19-openjdk-amd64",
+						path = "/usr/lib/jvm/java-19-openjdk",
 					},
-          {
+					{
 						name = "JavaSE-23",
-						path = "/usr/lib/jvm/java-23-openjdk-amd64",
+						path = "/usr/lib/jvm/java-23-openjdk",
 					},
 				},
 			},
@@ -106,11 +89,6 @@ local config = {
 			signatureHelp = { enabled = true },
 			format = {
 				enabled = true,
-				-- Formatting works by default, but you can refer to a specific file/URL if you choose
-				-- settings = {
-				--   url = "https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml",
-				--   profile = "GoogleStyle",
-				-- },
 			},
 		},
 		completion = {
