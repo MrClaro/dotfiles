@@ -4,10 +4,11 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = workspace_path .. project_name
 
 return {
-  -- `nvim-jdtls` plugin to program with Java
+  -- Adiciona `nvim-jdtls` como plugin para carregar em arquivos Java
   {
     "mfussenegger/nvim-jdtls",
-    ft = { "java" }, 
+    ft = { "java" }, -- Carrega apenas para arquivos Java
+  },
 
   -- tools
   {
@@ -22,7 +23,7 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
-        "jdtls", 
+        "jdtls", -- Adicionado jdtls ao Mason
       })
     end,
   },
@@ -104,7 +105,7 @@ return {
         },
       },
       setup = {
-        -- jdtls configuration for java files
+        -- Configuração do jdtls para arquivos Java
         jdtls = function()
           local status, jdtls = pcall(require, "jdtls")
           if not status then return end
@@ -147,7 +148,7 @@ return {
           }
 
           jdtls.start_or_attach(config)
-          -- Specific Keymaps for Java
+          -- Keymaps específicos para Java
           vim.keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>",
             { desc = "Organize Imports" })
           vim.keymap.set("n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>",
