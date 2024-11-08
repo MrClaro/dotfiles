@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Scripts
+# scripts
 export PATH="$HOME/.scripts:$PATH"
 alias ide="$HOME/.scripts/ide.sh"
 
@@ -24,6 +24,7 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 alias reloadzsh="source ~/.zshrc"
 alias editzsh="nvim ~/.zshrc"
 alias vim=nvim
+alias n=nvim
 alias ohmyzsh="cd .oh-my-zsh"
 alias editohmyzsh="nvim .oh-my-zsh"
 alias fd=fdfind
@@ -38,7 +39,7 @@ setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
 
-# Disable automatic globbing expansion
+# Desativar a expansão automática do globbing
 unsetopt glob
 
 # NVM configuration
