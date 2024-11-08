@@ -1,6 +1,6 @@
 return {
- -- Create annotations with one keybind, and jump your cursor in the inserted annotation 
-{
+  -- Create annotations with one keybind, and jump your cursor in the inserted annotation
+  {
     "danymat/neogen",
     keys = {
       {
@@ -58,7 +58,6 @@ return {
   -- Better increase/decrease
   {
     "monaqa/dial.nvim",
-    -- stylua: ignore
     keys = {
       { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
       { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
@@ -78,6 +77,7 @@ return {
     end,
   },
 
+  -- Symbols Outline
   {
     "simrat39/symbols-outline.nvim",
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
@@ -87,6 +87,7 @@ return {
     },
   },
 
+  -- Emoji completion source
   {
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
@@ -107,9 +108,24 @@ return {
         debounce_ms = 800,
         suggestion_color = { gui = "#808080", cterm = 244 },
         exclude_filetypes = { "TelescopePrompt", "NvimTree" },
-        log_file_path = nil, -- absolute path to Tabnine log file
+        log_file_path = nil,
         ignore_certificate_errors = false,
       })
+    end,
+  },
+
+  -- Tabnine integration with nvim-cmp
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = { "tzachar/cmp-tabnine", run = "./install.sh" },
+    opts = function(_, opts)
+      local cmp_tabnine = require("cmp_tabnine.config")
+      cmp_tabnine:setup({
+        max_lines = 1000,
+        max_num_results = 20,
+        sort = true,
+      })
+      table.insert(opts.sources, { name = "cmp_tabnine" })
     end,
   },
 }
