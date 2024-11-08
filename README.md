@@ -78,6 +78,7 @@ To apply my configuration, follow the steps below and make sure you have the rig
 
 ---
 
+
 ### Optional Enhancements
 
 For an improved experience, add these tools and integrations:
@@ -91,6 +92,27 @@ To install these tools:
 ```bash
 sudo pacman -S fzf ripgrep thefuck
 ```
+
+### TabNine Setup
+
+To complete your setup and enable AI-powered autocompletions with TabNine, follow these additional steps.
+
+1. **Download and Install TabNine Binaries**:
+   - You can find the instructions here: [Tabnine NVIM](https://github.com/codota/tabnine-nvim)
+   - TabNine requires specific binaries to function. To download them, run the following command:
+     ```bash
+     cd /home/<YourUser>/.local/share/nvim/lazy/tabnine-nvim && ./dl_binaries.sh
+     ```
+   - Replace `<YourUser>` with your actual username. This will download and unpack the necessary binaries for TabNine.
+
+2. **Authenticate TabNine with Your Token**:
+   - After the binaries are installed, open Neovim and start a coding session. TabNine should prompt you to log in with a token if needed.
+   - You can retrieve or manage your TabNine token by logging into your [TabNine account](https://www.tabnine.com/) online.
+
+3. **Restart Neovim**:
+   - After logging in, restart Neovim to ensure TabNine recognizes your account and settings.
+
+Once completed, TabNine should be fully functional and providing AI-based code suggestions within Neovim.
 
 ---
 
