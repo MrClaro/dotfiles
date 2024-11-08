@@ -4,13 +4,13 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = workspace_path .. project_name
 
 return {
-  -- Adiciona `nvim-jdtls` como plugin para carregar em arquivos Java
+  -- Adds nvim-jdtls as a plugin to load only for Java files
   {
     "mfussenegger/nvim-jdtls",
-    ft = { "java" }, -- Carrega apenas para arquivos Java
+    ft = { "java" }, -- Loads only for Java files
   },
 
-  -- tools
+  -- Tools
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
@@ -23,12 +23,14 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
-        "jdtls", -- Adicionado jdtls ao Mason
+        "html-lsp", -- Adds HTML LSP to Mason
+        "emmet-ls", -- Emmet for HTML/CSS/JSX snippets
+        "jdtls", -- Adds jdtls to Mason
       })
     end,
   },
 
-  -- lsp servers
+  -- LSP servers
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -36,6 +38,8 @@ return {
       ---@type lspconfig.options
       servers = {
         cssls = {},
+        html = {}, -- Enables HTML language server
+        emmet_ls = {}, -- Enables Emmet language server
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
@@ -71,7 +75,6 @@ return {
             },
           },
         },
-        html = {},
         yamlls = {
           settings = {
             yaml = {
@@ -105,7 +108,7 @@ return {
         },
       },
       setup = {
-        -- Configuração do jdtls para arquivos Java
+        -- JDTLS configuration for Java files
         jdtls = function()
           local status, jdtls = pcall(require, "jdtls")
           if not status then return end
@@ -128,11 +131,11 @@ return {
               "-jar",
               vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
               "-configuration",
-              home .. "/.local/share/nvim/mason/packages/jdtls/config_mac",
+              home .. "/.local/share/nvim/mason/packages/jdtls/config_linux", -- Adjusted for Linux
               "-data",
               workspace_dir,
             },
-            root_dir = jdtls.setup.find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
+            root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
             settings = {
               java = {
                 signatureHelp = { enabled = true },
@@ -148,19 +151,19 @@ return {
           }
 
           jdtls.start_or_attach(config)
-          -- Keymaps específicos para Java
+          -- Keymaps specific to Java
           vim.keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>",
-            { desc = "Organize Imports" })
+            { desc = "Organize Imports", buffer = true })
           vim.keymap.set("n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>",
-            { desc = "Extract Variable" })
+            { desc = "Extract Variable", buffer = true })
           vim.keymap.set("v", "<leader>crv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
-            { desc = "Extract Variable" })
+            { desc = "Extract Variable", buffer = true })
           vim.keymap.set("n", "<leader>crc", "<Cmd>lua require('jdtls').extract_constant()<CR>",
-            { desc = "Extract Constant" })
+            { desc = "Extract Constant", buffer = true })
           vim.keymap.set("v", "<leader>crc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
-            { desc = "Extract Constant" })
+            { desc = "Extract Constant", buffer = true })
           vim.keymap.set("v", "<leader>crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
-            { desc = "Extract Method" })
+            { desc = "Extract Method", buffer = true })
         end,
       },
     },
