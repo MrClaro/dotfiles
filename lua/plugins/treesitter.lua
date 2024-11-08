@@ -3,8 +3,11 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    tag = "v0.9.1", -- Adding the tag to ensure version consistency
     opts = {
       ensure_installed = {
+        "javascript",
+        "typescript",
         "astro",
         "cmake",
         "cpp",
@@ -15,29 +18,29 @@ return {
         "graphql",
         "http",
         "java",
+        "json",
+        "lua",
         "php",
         "rust",
         "scss",
         "sql",
         "svelte",
+        "vim",
       },
 
-      -- matchup = {
-      -- 	enable = true,
-      -- },
-
-      -- https://github.com/nvim-treesitter/playground#query-linter
+      -- Enabling the query linter
       query_linter = {
         enable = true,
         use_virtual_text = true,
         lint_events = { "BufWrite", "CursorHold" },
       },
 
+      -- Treesitter Playground configuration
       playground = {
         enable = true,
         disable = {},
-        updatetime = 25,        -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = true, -- Whether the query persists across vim sessions
+        updatetime = 25,        -- Debounce time for highlighting nodes in the playground from source code
+        persist_queries = true, -- Keep queries between Vim sessions
         keybindings = {
           toggle_query_editor = "o",
           toggle_hl_groups = "i",
@@ -55,7 +58,7 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
 
-      -- MDX
+      -- Additional configuration for MDX support
       vim.filetype.add({
         extension = {
           mdx = "mdx",
