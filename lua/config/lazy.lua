@@ -1,7 +1,12 @@
+-- Set path for lazy.nvim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- Check if lazy.nvim is already installed, if not, clone it
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  
+  -- If cloning fails, show an error message and exit
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
@@ -12,80 +17,78 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     os.exit(1)
   end
 end
+
+-- Add lazy.nvim to runtime path
 vim.opt.rtp:prepend(lazypath)
 
-
+-- Lazy plugin setup
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
+    -- LazyVim plugin and configuration
     {
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "catppuccin",
+        colorscheme = "catppuccin",  -- Use the 'catppuccin' theme
         news = {
           lazyvim = true,
           neovim = true,
         },
       },
     },
-    -- import any extras modules here
+    -- Linting and formatting plugins
     { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.tailwind" },
-    --	{ import = "lazyvim.plugins.extras.coding.copilot" },
-    -- { import = "lazyvim.plugins.extras.dap.core" },
-    -- { import = "lazyvim.plugins.extras.vscode" },
+    
+    -- Utilities and extra plugins
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    -- { import = "lazyvim.plugins.extras.test.core" },
-    -- { import = "lazyvim.plugins.extras.coding.yanky" },
-    -- { import = "lazyvim.plugins.extras.editor.mini-files" },
-    -- { import = "lazyvim.plugins.extras.util.project" },
-    { import = "plugins" },
+    { import = "plugins" },  -- Custom user plugins
   },
+
+  -- Default settings for plugins
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
-    lazy = false,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
-    version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
+    lazy = false,  -- Disable lazy-loading by default
+    version = false,  -- Always use the latest commit from plugins
   },
+
+  -- Development setup (path for custom development plugins)
   dev = {
     path = "~/.ghq/github.com",
   },
-  checker = { enabled = true }, -- automatically check for plugin updates
+
+  -- Plugin update checker
+  checker = { enabled = true },  -- Automatically check for updates
+
+  -- Performance optimizations
   performance = {
-    cache = {
-      enabled = true,
-      -- disable_events = {},
-    },
+    cache = { enabled = true },  -- Enable cache for performance
     rtp = {
-      -- disable some rtp plugins
+      -- Disable certain runtime path plugins for faster startup
       disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
-        "netrwPlugin",
-        "rplugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
+        "gzip",  -- Compression
+        "netrwPlugin",  -- File explorer
+        "rplugin",  -- Remote plugins
+        "tarPlugin",  -- TAR support
+        "tohtml",  -- HTML export
+        "tutor",  -- Tutor mode
+        "zipPlugin",  -- ZIP support
       },
     },
   },
+
+  -- UI customizations
   ui = {
     custom_keys = {
       ["<localleader>d"] = function(plugin)
-        dd(plugin)
+        dd(plugin)  -- Custom keybinding for displaying plugin info
       end,
     },
   },
-  debug = false,
+
+  -- Debugging settings
+  debug = false,  -- Disable debug logs
 })
