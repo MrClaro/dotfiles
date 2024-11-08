@@ -8,7 +8,7 @@ To apply my configuration, follow the steps below and make sure you have the rig
    - **LazyVim** (a configuration manager for Neovim)
    - **Tmux** (a terminal multiplexer) and **tpm** (Tmux Plugin Manager)
    - **Neovim** (my main editor, minimum recommended version: 0.9.5)
-   - **LazyVim** (to start with an efficient Neovim configuration)
+   - **Luarocks** (for Neovim plugin dependencies)
 
 2. **Recommended tools:**
    To enhance your terminal experience, I recommend installing the following tools:
@@ -17,27 +17,36 @@ To apply my configuration, follow the steps below and make sure you have the rig
    - `procs`, `dust`, `tokei`, `ytop`, `tealdeer`, `grex`, `rmesg`, `zoxide`, `delta`
 
    **Note:** Only **bat**, **exa**, and **zoxide** are required to apply my `.zshrc` configuration.
-     
-   **Note:** Also to install I recommend that you use the cargo, just copy and paste:
-   ```
+
+   **Note:** To install these tools using `cargo`, simply run:
+   ```bash
    cargo install bat exa procs dust tokei ytop tealdeer grex rmesg zoxide delta
    ```
+
 ---
 
-### Step-by-step configuration:
+### Step-by-Step Configuration:
 
-1. **Clone the official LazyVim repository**:
-   This is the first step to get started with my personalized configuration:
+1. **Install Essential Packages**:
+   Start by installing the required packages via `pacman`:
+   ```bash
+   sudo pacman -S neovim tmux luarocks git ripgrep fzf thefuck
+   ```
 
+   Install optional dependencies (using `cargo` where applicable):
+   ```bash
+   cargo install bat exa procs dust tokei ytop tealdeer grex rmesg zoxide delta
+   ```
+
+2. **Clone the Official LazyVim Repository**:
+   Get started with LazyVim by cloning its repository:
    ```bash
    git clone https://github.com/LazyVim/starter ~/.config/nvim
    cd ~/.config/nvim
    ```
 
-2. **Overwrite configuration files**:
-   Once you have cloned the LazyVim repository, you need to overwrite the existing configuration files with mine. This will ensure that you're using my customized setup.
-
-   Assuming you have a folder containing my configurations, execute the following commands:
+3. **Overwrite Configuration Files**:
+   After cloning the LazyVim repository, replace the existing configuration files with yours to use your personalized setup. For example:
 
    ```bash
    # Replace the Neovim configuration files:
@@ -47,43 +56,40 @@ To apply my configuration, follow the steps below and make sure you have the rig
    cp -r /path/to/my/tmux/. ~/.tmux/
    ```
 
-3. **Install Tmux Plugins**:
-   After copying the Tmux configuration, you’ll need to initialize **tpm** (Tmux Plugin Manager) to load the plugins specified in the `.tmux.conf`. Do this by opening a new Tmux session and running:
-
+4. **Install Tmux Plugins**:
+   Initialize **tpm** (Tmux Plugin Manager) to load plugins specified in `.tmux.conf`:
    ```bash
-   # Inside the tmux session, press:
+   # Open a new Tmux session, then press:
    Ctrl + B and then I (capital i)
 
-   # This will install all the plugins defined in your .tmux.conf
+   # This installs all plugins in your .tmux.conf
    ```
-   If you copied my tmux configuration, your leading key is S, so you should use Ctrl + S and then I
+   > **Note**: If you copied my Tmux configuration, the prefix key is `S`, so you should use `Ctrl + S` and then `I`.
 
-
-4. **Source the .zshrc configuration**:
-   After setting up Tmux, you’ll also need to make sure your shell configurations are loaded properly. You can either restart your terminal or run:
+5. **Source the .zshrc configuration**:
+   After setting up Tmux, ensure your shell configurations are loaded properly. Either restart your terminal or run:
 
    ```bash
    source ~/.zshrc
    ```
 
-5. **Verify the setup**:
-   Once everything is set up, open a new Neovim session and a Tmux session to ensure that the configurations are loaded correctly. You should see LazyVim's interface in Neovim and the custom Tmux setup working as expected.
+6. **Verify the Setup**:
+   Open a new Neovim session and a Tmux session to verify that the configurations loaded correctly. You should see LazyVim's interface in Neovim and the custom Tmux setup.
 
 ---
 
-### Optional enhancements:
+### Optional Enhancements
 
-If you want to improve your overall experience, you can customize your terminal even further by adding additional tools and integrations. Here are some that I highly recommend:
+For an improved experience, add these tools and integrations:
 
-- **FZF**: A general-purpose command-line fuzzy finder for searching files, git commits, etc.
-- **Ripgrep**: A super-fast alternative to `grep`, integrated with Neovim for searching through files.
-- **TheFuck**: A command-line tool that corrects errors in previous console commands.
+- **FZF**: A command-line fuzzy finder for searching files, git commits, etc.
+- **Ripgrep**: A fast alternative to `grep`, integrated with Neovim for searching through files.
+- **TheFuck**: A tool to correct errors in previous console commands.
 
 To install these tools:
 
 ```bash
-# Example:
-sudo apt install fzf ripgrep thefuck
+sudo pacman -S fzf ripgrep thefuck
 ```
 
 ---
