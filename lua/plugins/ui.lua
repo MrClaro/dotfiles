@@ -1,12 +1,55 @@
 return {
+
   -- Messages, cmdline, and popup menu
   {
     "folke/noice.nvim",
     opts = function(_, opts)
-      -- [Suas configurações do noice.nvim aqui...]
+      -- Add a rule to filter specific messages
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          find = "No information available", -- Messages containing "No information available" will be ignored
+        },
+        opts = { skip = true },
+      })
+
+      -- Configuration to detect window focus
+      local focused = true
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = function()
+          focused = true
+        end,
+      })
+      vim.api.nvim_create_autocmd("FocusLost", {
+        callback = function()
+          focused = false
+        end,
+      })
+
+      -- Add a route for notifications when the window is not focused
+      table.insert(opts.routes, 1, {
+        filter = {
+          cond = function()
+            return not focused
+          end,
+        },
+        view = "notify_send", -- Displays notifications in a native style
+        opts = { stop = false }, -- Allows other notifications to continue displaying
+      })
+
+      -- Command settings to show message history in noice.nvim
+      opts.commands = {
+        all = {
+          view = "split",
+          opts = { enter = true, format = "details" },
+          filter = {},
+        },
+      }
+
+      -- Adds a border to the LSP documentation
+      opts.presets.lsp_doc_border = true
     end,
   },
-
   -- Notification
   {
     "rcarriga/nvim-notify",
