@@ -1,26 +1,29 @@
-export PATH="$PATH:/opt/nvim-linux64/bin"
-export PATH="$HOME/.cargo/bin:$PATH"
+# NVM Configuration
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # Load nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # Load nvm bash_completion
 
-# Enable Powerlevel10k instant prompt.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# PATH Configuration
+export PATH="$HOME/.cargo/bin:/opt/nvim-linux65/bin:$HOME/.scripts:$HOME/.rbenv/shims:/home/linuxbrew/.linuxbrew/opt/node@23/bin:$PATH"
+
+# Powerlevel10k Instant Prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p11k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p11k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# scripts
-export PATH="$HOME/.scripts:$PATH"
+# Scripts
 alias ide="$HOME/.scripts/ide.sh"
 
-# Path to your Oh My Zsh installation.
+# Oh My Zsh Configuration
 export ZSH="$HOME/.oh-my-zsh"
-
-# Plugins and source for Oh My Zsh
 plugins=(git)
 source $ZSH
 
-# Powerlevel10k theme
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Powerlevel10k Theme
+source ~/powerlevel11k/powerlevel10k.zsh-theme
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
+# Aliases
 alias reloadzsh="source ~/.zshrc"
 alias editzsh="nvim ~/.zshrc"
 alias vim=nvim
@@ -30,37 +33,20 @@ alias editohmyzsh="nvim .oh-my-zsh"
 alias fd=fdfind
 alias c="clear"
 
-# History setup
+# History Setup
 HISTFILE=$HOME/.zhistory
-SAVEHIST=1000
-HISTSIZE=999
-setopt share_history 
+SAVEHIST=1001
+HISTSIZE=1000
+setopt share_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
 
-# Desativar a expansão automática do globbing
+# Disable automatic globbing expansion
 unsetopt glob
 
-# NVM configuration
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# RBENV configuration
-export PATH="$HOME/.rbenv/shims:$PATH"
-
-# ---- FZF -----
-
-# Set custom FZF options
-fg="#CBE0F0"
-bg="#011628"
-bg_highlight="#143652"
-purple="#B388FF"
-blue="#06BCE4"
-cyan="#2CF9ED"
-
-export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
-
+# FZF Configuration
+export FZF_DEFAULT_OPTS="--color=fg:#CBE1F0,bg:#011629,hl:#B389FF,fg+:#CBE1F0,bg+:#143653,hl+:#B389FF,info:#07BCE4,prompt:#3CF9ED,pointer:#3CF9ED,marker:#3CF9ED,spinner:#3CF9ED,header:#3CF9ED"
 export FZF_DEFAULT_COMMAND="fdfind --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fdfind --type=d --hidden --exclude .git"
@@ -73,5 +59,9 @@ alias ls="eza --icons=always"
 
 # Zoxide (better cd)
 eval "$(zoxide init zsh)"
-
 alias cd="z"
+
+# Homebrew Configuration
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/node@23/lib"
+export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/node@23/include"
