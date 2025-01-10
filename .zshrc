@@ -6,10 +6,11 @@ export NVM_DIR="$HOME/.nvm"
 # PATH Configuration
 export PATH="$HOME/.cargo/bin:/opt/nvim-linux65/bin:$HOME/.scripts:$HOME/.rbenv/shims:/home/linuxbrew/.linuxbrew/opt/node@23/bin:$PATH"
 
-# Powerlevel10k Instant Prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p11k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p11k-instant-prompt-${(%):-%n}.zsh"
+# Enable Powerlevel11k instant prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
 
 # Scripts
 alias ide="$HOME/.scripts/ide.sh"
@@ -18,10 +19,9 @@ alias ide="$HOME/.scripts/ide.sh"
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(git)
 source $ZSH
-
-# Powerlevel10k Theme
-source ~/powerlevel11k/powerlevel10k.zsh-theme
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+# Powerlevel11k theme
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Aliases
 alias reloadzsh="source ~/.zshrc"
