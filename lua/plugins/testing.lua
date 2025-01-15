@@ -13,36 +13,33 @@ return {
       adapters = {
         -- Adapter for Plenary (generic test framework)
         ["neotest-plenary"] = {},
-        
+
         -- Adapter for Jest tests with dynamic configuration based on the project structure
         ["neotest-jest"] = {
-          -- Automatically determine the path to the Jest config file based on the current file
+          -- Function to dynamically get Jest config file
           jestConfigFile = function()
             local file = vim.fn.expand("%:p")
-            if string.find(file, "/packages/") then
-              return string.match(file, "(.-/[^/]+/)src") .. "jest.config.ts"
+            if file:find("/packages/") then
+              return file:match("(.-/[^/]+/)src") .. "jest.config.ts"
             end
             return vim.fn.getcwd() .. "/jest.config.ts"
           end,
-          
-          -- Set the current working directory for Jest based on file location
+
+          -- Set Jest's current working directory dynamically
           cwd = function()
             local file = vim.fn.expand("%:p")
-            if string.find(file, "/packages/") then
-              return string.match(file, "(.-/[^/]+/)src")
-            end
-            return vim.fn.getcwd()
+            return file:find("/packages/") and file:match("(.-/[^/]+/)src") or vim.fn.getcwd()
           end,
         },
       },
-      
-      -- Show diagnostics as virtual text for neotest
+
+      -- Enable virtual text diagnostics for test status
       status = { virtual_text = true },
-      
-      -- Automatically open the output when running tests
+
+      -- Automatically open the output after running tests
       output = { open_on_run = true },
-      
-      -- Configure the Quickfix window behavior for test results
+
+      -- Configure Quickfix window behavior for test results
       quickfix = {
         open = function()
           if require("lazyvim.util").has("trouble.nvim") then
@@ -53,32 +50,30 @@ return {
         end,
       },
     },
+
+    -- Function to configure Neotest with specific options
     config = function(_, opts)
       local neotest_ns = vim.api.nvim_create_namespace("neotest")
 
-      -- Configure diagnostic messages format for neotest
+      -- Configure virtual text format for cleaner diagnostic messages
       vim.diagnostic.config({
         virtual_text = {
           format = function(diagnostic)
-            -- Clean up diagnostic messages by removing unnecessary newlines and tabs
-            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-            return message
+            return diagnostic.message:gsub("[\n\t%s]+", " "):gsub("^%s+", "")
           end,
         },
       }, neotest_ns)
 
-      -- If Trouble.nvim is available, configure custom behavior for the test results
+      -- Integrate with Trouble.nvim if available
       if require("lazyvim.util").has("trouble.nvim") then
         opts.consumers = opts.consumers or {}
         opts.consumers.trouble = function(client)
           client.listeners.results = function(adapter_id, results, partial)
-            if partial then
-              return
-            end
+            if partial then return end
             local tree = assert(client:get_position(nil, { adapter = adapter_id }))
             local failed = 0
-            for pos_id, result in pairs(results) do
-              if result.status == "failed" and tree:get_key(pos_id) then
+            for _, result in pairs(results) do
+              if result.status == "failed" then
                 failed = failed + 1
               end
             end
@@ -95,38 +90,28 @@ return {
         end
       end
 
-      -- Setup adapters dynamically if configured
+      -- Setup adapters dynamically
       if opts.adapters then
         local adapters = {}
-        for name, config in pairs(opts.adapters or {}) do
-          if type(name) == "number" then
-            if type(config) == "string" then
-              config = require(config)
+        for name, config in pairs(opts.adapters) do
+          local adapter = require(name)
+          if config and type(config) == "table" then
+            if adapter.setup then
+              adapter.setup(config)
+            else
+              adapter(config)
             end
-            adapters[#adapters + 1] = config
-          elseif config ~= false then
-            local adapter = require(name)
-            if type(config) == "table" and not vim.tbl_isempty(config) then
-              local meta = getmetatable(adapter)
-              if adapter.setup then
-                adapter.setup(config)
-              elseif meta and meta.__call then
-                adapter(config)
-              else
-                error("Adapter " .. name .. " does not support setup")
-              end
-            end
-            adapters[#adapters + 1] = adapter
           end
+          adapters[#adapters + 1] = adapter
         end
         opts.adapters = adapters
       end
 
-      -- Initialize Neotest with the specified configuration
+      -- Initialize Neotest
       require("neotest").setup(opts)
     end,
-    
-    -- Keybindings for various Neotest actions
+
+    -- Keybindings for Neotest actions
     keys = {
       { ";tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run current file" },
       { ";tr", function() require("neotest").run.run() end, desc = "Run nearest test" },
