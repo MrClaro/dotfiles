@@ -69,7 +69,9 @@ return {
         opts.consumers = opts.consumers or {}
         opts.consumers.trouble = function(client)
           client.listeners.results = function(adapter_id, results, partial)
-            if partial then return end
+            if partial then
+              return
+            end
             local tree = assert(client:get_position(nil, { adapter = adapter_id }))
             local failed = 0
             for _, result in pairs(results) do
@@ -113,14 +115,62 @@ return {
 
     -- Keybindings for Neotest actions
     keys = {
-      { ";tt", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run current file" },
-      { ";tr", function() require("neotest").run.run() end, desc = "Run nearest test" },
-      { ";tT", function() require("neotest").run.run(vim.loop.cwd()) end, desc = "Run all tests in the project" },
-      { ";tl", function() require("neotest").run.run_last() end, desc = "Run last test" },
-      { ";ts", function() require("neotest").summary.toggle() end, desc = "Toggle test summary" },
-      { ";to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Show test output" },
-      { ";tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle output panel" },
-      { ";tS", function() require("neotest").run.stop() end, desc = "Stop running tests" },
+      {
+        ";tt",
+        function()
+          require("neotest").run.run(vim.fn.expand("%"))
+        end,
+        desc = "Run current file",
+      },
+      {
+        ";tr",
+        function()
+          require("neotest").run.run()
+        end,
+        desc = "Run nearest test",
+      },
+      {
+        ";tT",
+        function()
+          require("neotest").run.run(vim.loop.cwd())
+        end,
+        desc = "Run all tests in the project",
+      },
+      {
+        ";tl",
+        function()
+          require("neotest").run.run_last()
+        end,
+        desc = "Run last test",
+      },
+      {
+        ";ts",
+        function()
+          require("neotest").summary.toggle()
+        end,
+        desc = "Toggle test summary",
+      },
+      {
+        ";to",
+        function()
+          require("neotest").output.open({ enter = true, auto_close = true })
+        end,
+        desc = "Show test output",
+      },
+      {
+        ";tO",
+        function()
+          require("neotest").output_panel.toggle()
+        end,
+        desc = "Toggle output panel",
+      },
+      {
+        ";tS",
+        function()
+          require("neotest").run.stop()
+        end,
+        desc = "Stop running tests",
+      },
     },
   },
 }
