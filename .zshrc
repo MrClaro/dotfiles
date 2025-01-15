@@ -32,6 +32,17 @@ alias ohmyzsh="cd .oh-my-zsh"
 alias editohmyzsh="nvim .oh-my-zsh"
 alias fd=fdfind
 alias c="clear"
+alias openwin="cd /mnt/c/Users/adrdev"
+alias openhere="explorer.exe ."
+
+# Functions
+openbrave() {
+    /mnt/c/Program\ Files/BraveSoftware/Brave-Browser/Application/brave.exe "file://$(realpath "$1")"
+}
+openopera() {
+    /mnt/c/Users/adrdev/AppData/Local/Programs/Opera/opera.exe "file://$(realpath "$1")"
+}
+
 
 # History Setup
 HISTFILE=$HOME/.zhistory
@@ -61,7 +72,4 @@ alias ls="eza --icons=always"
 eval "$(zoxide init zsh)"
 alias cd="z"
 
-# Homebrew Configuration
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/node@23/lib"
-export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/node@23/include"
+export PATH="/home/linuxbrew/.linuxbrew/opt/node@22/bin:$PATH"
