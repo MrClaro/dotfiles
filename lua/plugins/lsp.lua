@@ -85,7 +85,9 @@ return {
         -- JDTLS setup for Java files
         jdtls = function()
           local status, jdtls = pcall(require, "jdtls")
-          if not status then return end
+          if not status then
+            return
+          end
 
           local config = {
             cmd = {
@@ -97,12 +99,17 @@ return {
               "-Dlog.level=ALL",
               "-Xmx1g",
               "--add-modules=ALL-SYSTEM",
-              "--add-opens", "java.base/java.util=ALL-UNNAMED",
-              "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+              "--add-opens",
+              "java.base/java.util=ALL-UNNAMED",
+              "--add-opens",
+              "java.base/java.lang=ALL-UNNAMED",
               "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
-              "-jar", vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-              "-configuration", home .. "/.local/share/nvim/mason/packages/jdtls/config_linux",
-              "-data", workspace_dir,
+              "-jar",
+              vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+              "-configuration",
+              home .. "/.local/share/nvim/mason/packages/jdtls/config_linux",
+              "-data",
+              workspace_dir,
             },
             root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
             settings = {
@@ -123,12 +130,42 @@ return {
           jdtls.start_or_attach(config)
 
           -- Java-specific keymaps
-          vim.keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports", buffer = true })
-          vim.keymap.set("n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable", buffer = true })
-          vim.keymap.set("v", "<leader>crv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", { desc = "Extract Variable", buffer = true })
-          vim.keymap.set("n", "<leader>crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant", buffer = true })
-          vim.keymap.set("v", "<leader>crc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", { desc = "Extract Constant", buffer = true })
-          vim.keymap.set("v", "<leader>crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method", buffer = true })
+          vim.keymap.set(
+            "n",
+            "<leader>co",
+            "<Cmd>lua require'jdtls'.organize_imports()<CR>",
+            { desc = "Organize Imports", buffer = true }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>crv",
+            "<Cmd>lua require('jdtls').extract_variable()<CR>",
+            { desc = "Extract Variable", buffer = true }
+          )
+          vim.keymap.set(
+            "v",
+            "<leader>crv",
+            "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
+            { desc = "Extract Variable", buffer = true }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>crc",
+            "<Cmd>lua require('jdtls').extract_constant()<CR>",
+            { desc = "Extract Constant", buffer = true }
+          )
+          vim.keymap.set(
+            "v",
+            "<leader>crc",
+            "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
+            { desc = "Extract Constant", buffer = true }
+          )
+          vim.keymap.set(
+            "v",
+            "<leader>crm",
+            "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
+            { desc = "Extract Method", buffer = true }
+          )
         end,
       },
     },
