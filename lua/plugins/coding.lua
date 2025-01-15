@@ -33,7 +33,6 @@ return {
         mode = "v",
         noremap = true,
         silent = true,
-        expr = false,
       },
     },
     opts = {},
@@ -44,8 +43,7 @@ return {
     "echasnovski/mini.bracketed",
     event = "BufReadPost",
     config = function()
-      local bracketed = require("mini.bracketed")
-      bracketed.setup({
+      require("mini.bracketed").setup({
         file = { suffix = "" },
         window = { suffix = "" },
         quickfix = { suffix = "" },
@@ -59,8 +57,22 @@ return {
   {
     "monaqa/dial.nvim",
     keys = {
-      { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
-      { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
+      {
+        "<C-a>",
+        function()
+          return require("dial.map").inc_normal()
+        end,
+        expr = true,
+        desc = "Increment",
+      },
+      {
+        "<C-x>",
+        function()
+          return require("dial.map").dec_normal()
+        end,
+        expr = true,
+        desc = "Decrement",
+      },
     },
     config = function()
       local augend = require("dial.augend")
@@ -87,12 +99,22 @@ return {
     },
   },
 
-  -- Emoji completion source
+  -- Emoji completion source and Tabnine integration with nvim-cmp
   {
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
+    dependencies = {
+      "hrsh7th/cmp-emoji",
+      { "tzachar/cmp-tabnine", build = "./install.sh" },
+    },
     opts = function(_, opts)
+      local cmp_tabnine = require("cmp_tabnine.config")
+      cmp_tabnine:setup({
+        max_lines = 1000,
+        max_num_results = 20,
+        sort = true,
+      })
       table.insert(opts.sources, { name = "emoji" })
+      table.insert(opts.sources, { name = "cmp_tabnine" })
     end,
   },
 
@@ -111,21 +133,6 @@ return {
         log_file_path = nil,
         ignore_certificate_errors = false,
       })
-    end,
-  },
-
-  -- Tabnine integration with nvim-cmp
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "tzachar/cmp-tabnine", run = "./install.sh" },
-    opts = function(_, opts)
-      local cmp_tabnine = require("cmp_tabnine.config")
-      cmp_tabnine:setup({
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-      })
-      table.insert(opts.sources, { name = "cmp_tabnine" })
     end,
   },
 }
