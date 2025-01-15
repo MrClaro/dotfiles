@@ -1,3 +1,73 @@
+return {
+
+  -- Messages, cmdline, and popup menu
+  {
+    "folke/noice.nvim",
+    opts = function(_, opts)
+      -- Add a rule to filter specific messages
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          find = "No information available", -- Ignore messages containing "No information available"
+        },
+        opts = { skip = true },
+      })
+
+      -- Track window focus status
+      local focused = true
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = function()
+          focused = true
+        end,
+      })
+      vim.api.nvim_create_autocmd("FocusLost", {
+        callback = function()
+          focused = false
+        end,
+      })
+
+      -- Show notifications when the window is not focused
+      table.insert(opts.routes, 1, {
+        filter = {
+          cond = function()
+            return not focused
+          end,
+        },
+        view = "notify_send", -- Displays notifications in a native style
+        opts = { stop = false }, -- Allows other notifications to continue displaying
+      })
+
+      -- Command settings to show message history in noice.nvim
+      opts.commands = {
+        all = {
+          view = "split",
+          opts = { enter = true, format = "details" },
+        },
+      }
+
+      -- Enable border for LSP documentation
+      opts.presets.lsp_doc_border = true
+    end,
+  },
+
+  -- Notification system
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 5000, -- Set notification timeout to 5 seconds
+    },
+  },
+
+  -- Smooth animations
+  {
+    "echasnovski/mini.animate",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      opts.scroll = { enable = false } -- Disable scrolling animation
+    end,
+  },
+
+  -- Buffer line with navigation
   {
     "akinsho/bufferline.nvim",
     event = "BufReadPre",
