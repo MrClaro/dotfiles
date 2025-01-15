@@ -84,25 +84,4 @@ return {
       },
     },
   },
-
-  -- LSP-based refactoring support
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require("lspconfig")
-      lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
-      })
-
-      lspconfig.util.on_attach(function(client, bufnr)
-        local function buf_set_keymap(...)
-          vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        local opts = { noremap = true, silent = true }
-
-        buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-        buf_set_keymap("v", "<leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
-      end)
-    end,
-  },
 }
