@@ -1,82 +1,6 @@
-return {
-
-  -- Messages, cmdline, and popup menu
-  {
-    "folke/noice.nvim",
-    opts = function(_, opts)
-      -- Add a rule to filter specific messages
-      table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          find = "No information available", -- Messages containing "No information available" will be ignored
-        },
-        opts = { skip = true },
-      })
-
-      -- Configuration to detect window focus
-      local focused = true
-      vim.api.nvim_create_autocmd("FocusGained", {
-        callback = function()
-          focused = true
-        end,
-      })
-      vim.api.nvim_create_autocmd("FocusLost", {
-        callback = function()
-          focused = false
-        end,
-      })
-
-      -- Add a route for notifications when the window is not focused
-      table.insert(opts.routes, 1, {
-        filter = {
-          cond = function()
-            return not focused
-          end,
-        },
-        view = "notify_send", -- Displays notifications in a native style
-        opts = { stop = false }, -- Allows other notifications to continue displaying
-      })
-
-      -- Command settings to show message history in noice.nvim
-      opts.commands = {
-        all = {
-          view = "split",
-          opts = { enter = true, format = "details" },
-          filter = {},
-        },
-      }
-
-      -- Adds a border to the LSP documentation
-      opts.presets.lsp_doc_border = true
-    end,
-  },
-  -- Notification
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 5000,
-    },
-  },
-
-  -- Animations
-  {
-    "echasnovski/mini.animate",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      opts.scroll = {
-        enable = false,
-      }
-    end,
-  },
-
-  -- Buffer line
   {
     "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer" },
-    },
+    event = "BufReadPre",
     opts = {
       options = {
         mode = "buffers",
@@ -89,7 +13,7 @@ return {
     },
   },
 
-  -- Status line
+  -- Status line customization with lualine
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
@@ -101,14 +25,12 @@ return {
           modified_hl = "MatchParen",
           directory_hl = "",
           filename_hl = "Bold",
-          modified_sign = "",
-          readonly_icon = " 󰌾 ",
         }),
       }
     end,
   },
 
-  -- Zen Mode
+  -- Zen Mode for focused coding
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
@@ -122,26 +44,30 @@ return {
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },
 
-  -- Dashboard
+  -- Dashboard with custom logo
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function(_, opts)
       local logo = [[
-      █████╗ ██████╗ ██████╗ ██████╗ ███████╗██╗   ██╗
-     ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝██║   ██║
-     ███████║██║  ██║██████╔╝██║  ██║█████╗  ██║   ██║
-     ██╔══██║██║  ██║██╔══██╗██║  ██║██╔══╝  ╚██╗ ██╔╝
-     ██║  ██║██████╔╝██║  ██║██████╔╝███████╗ ╚████╔╝ 
-     ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝  ╚═══╝  
+    █████╗ ██████╗ ██████╗ ██████╗ ███████╗██╗   ██╗
+   ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝██║   ██║
+   ███████║██║  ██║██████╔╝██║  ██║█████╗  ██║   ██║
+   ██╔══██║██║  ██║██╔══██╗██║  ██║██╔══╝  ╚██╗ ██╔╝
+   ██║  ██║██████╔╝██║  ██║██████╔╝███████╗ ╚████╔╝ 
+   ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝  ╚═══╝  
 ]]
-
       logo = string.rep("\n", 8) .. logo .. "\n\n"
+
+      if not opts.config then
+        opts.config = {}
+      end
+
       opts.config.header = vim.split(logo, "\n")
     end,
   },
 
-  -- Incline.nvim (displays filename at top of buffer)
+  -- Show filename at the top of the buffer with incline.nvim
   {
     "b0o/incline.nvim",
     event = "BufReadPre",
@@ -169,18 +95,16 @@ return {
     end,
   },
 
-  -- LazyGit integration with Telescope
+  -- LazyGit integration for Git commands
   {
     "kdheepak/lazygit.nvim",
     keys = {
       { ";c", ":LazyGit<Return>", silent = true, noremap = true },
     },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
 
-  -- Database management with vim-dadbod
+  -- Database management with vim-dadbod-ui
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
