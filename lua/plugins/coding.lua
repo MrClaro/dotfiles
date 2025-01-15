@@ -99,25 +99,6 @@ return {
     },
   },
 
-  -- Emoji completion source and Tabnine integration with nvim-cmp
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-      { "tzachar/cmp-tabnine", build = "./install.sh" },
-    },
-    opts = function(_, opts)
-      local cmp_tabnine = require("cmp_tabnine.config")
-      cmp_tabnine:setup({
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-      })
-      table.insert(opts.sources, { name = "emoji" })
-      table.insert(opts.sources, { name = "cmp_tabnine" })
-    end,
-  },
-
   -- Auto Complete code
   {
     "codota/tabnine-nvim",
