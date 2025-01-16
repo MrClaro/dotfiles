@@ -67,22 +67,22 @@ return {
     end,
   },
 
-  -- Buffer line with navigation
+  -- buffer line
   {
     "akinsho/bufferline.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
+    keys = {
+      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+    },
     opts = {
       options = {
-        mode = "buffers",
-        separator_style = "slant",
+        mode = "tabs",
         show_buffer_close_icons = false,
         show_close_icon = false,
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = true,
       },
     },
   },
-
   -- Status line customization with lualine
   {
     "nvim-lualine/lualine.nvim",
@@ -165,28 +165,4 @@ return {
     end,
   },
 
-  -- LazyGit integration for Git commands
-  {
-    "kdheepak/lazygit.nvim",
-    keys = {
-      { ";c", ":LazyGit<Return>", silent = true, noremap = true },
-    },
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-
-  -- Database management with vim-dadbod-ui
-  {
-    "kristijanhusak/vim-dadbod-ui",
-    dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
-      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-    },
-    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
-    init = function()
-      vim.g.db_ui_use_nerd_fonts = 1
-    end,
-    keys = {
-      { "<leader>d", "<cmd>NeoTreeClose<cr><cmd>tabnew<cr>|<cmd>DBUI<cr>", desc = "Open DBUI" },
-    },
-  },
 }
