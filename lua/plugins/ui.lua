@@ -66,20 +66,22 @@ return {
       opts.scroll = { enable = false } -- Disable scrolling animation
     end,
   },
-
-  -- buffer line
+  -- Buffer line
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
+      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer" },
     },
     opts = {
       options = {
-        mode = "tabs",
+        mode = "buffers",
+        separator_style = "slant",
         show_buffer_close_icons = false,
         show_close_icon = false,
+        diagnostics = "nvim_lsp",
+        always_show_bufferline = true,
       },
     },
   },
@@ -164,5 +166,4 @@ return {
       })
     end,
   },
-
 }
