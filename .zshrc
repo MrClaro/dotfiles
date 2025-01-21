@@ -72,4 +72,4 @@ alias ls="eza --icons=always"
 eval "$(zoxide init zsh)"
 alias cd="z"
 
-export PATH="/home/linuxbrew/.linuxbrew/opt/node@22/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/opt/node@23/bin:$PATH"
