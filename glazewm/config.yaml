@@ -1,0 +1,313 @@
+general:
+  # Commands to run when the WM has started. This is useful for running a
+  # script or launching another application.
+  # Example: The below command launches Zebar.
+  startup_commands: ["shell-exec zebar"]
+  shutdown_commands: ["shell-exec taskkill /IM zebar.exe /F"]
+  config_reload_commands: []
+  focus_follows_cursor: false
+  toggle_workspace_on_refocus: false
+  show_floating_on_top: true
+
+  cursor_jump:
+    enabled: true
+    trigger: "monitor_focus"
+
+  hide_method: "cloak"
+  show_all_in_taskbar: false
+
+# Bar configuration.
+bar:
+  height: "30px"
+  position: "top"
+  opacity: 1.0
+  background: "#101010c4"
+  foreground: "#ffffff"
+  font_family: "Cascadia Code"
+  font_size: "13px"
+  padding: "4px 6px"
+  offset_x: "10px"
+  offset_y: "10px"
+  border_radius: "0"
+  components_left:
+    - type: "workspaces"
+      focused_workspace_background: "#8192B333"
+      displayed_workspace_background: "#42403e33"
+      default_workspace_background: "transparent"
+  components_center:
+    - type: "window title"
+  components_right:
+    - type: "tiling direction"
+      label_horizontal: "⮂"
+      label_vertical: "⮁"
+      background: "#8192B333"
+      margin: "0 4px"
+      padding: "0 8px"
+    - type: "binding mode"
+      background: "#8192B333"
+      margin: "0 4px 0 0"
+      padding: "0 8px"
+    - type: "battery"
+      draining: "{battery_level}% 🔋 remaining"
+      power_saver: "{battery_level}% 🔁 (power saver)"
+      charging: "{battery_level}% ⚡ (charging)"
+    - type: "clock"
+      time_formatting: "hh:mm tt  ddd d MMM yyyy"
+      margin: "0 0 0 10px"
+
+# Gaps between windows.
+gaps:
+  scale_with_dpi: true
+  inner_gap: "20px"
+  outer_gap:
+    top: "60px"
+    right: "20px"
+    bottom: "20px"
+    left: "20px"
+
+# Visual effects for focused and unfocused windows.
+window_effects:
+  focused_window:
+    border:
+      enabled: true
+      color: "#940404"
+    hide_title_bar:
+      enabled: false
+    corner_style:
+      enabled: false
+      style: "square"
+    transparency:
+      enabled: true
+      opacity: "95%"
+
+  other_windows:
+    border:
+      enabled: true
+      color: "#a1a1a1"
+    hide_title_bar:
+      enabled: false
+    corner_style:
+      enabled: false
+      style: "square"
+    transparency:
+      enabled: false
+      opacity: "0%"
+
+# Behavior for new windows.
+window_behavior:
+  initial_state: "tiling"
+  state_defaults:
+    floating:
+      centered: true
+      shown_on_top: false
+    fullscreen:
+      maximized: false
+      shown_on_top: false
+
+# Workspaces to be displayed.
+workspaces:
+  - name: "1"
+    display_name: "1) 📧 messaging"
+  - name: "2"
+    display_name: "2) 🎮 gaming"
+  - name: "3"
+    display_name: "3) 🌐 web"
+  - name: "4"
+    display_name: "4) 📄 editor"
+  - name: "5"
+    display_name: "5) 🖥 workspace"
+  - name: "6"
+    display_name: "6) 🎵 multimedia"
+  - name: "7"
+    display_name: "7"
+  - name: "8"
+    display_name: "8"
+  - name: "9"
+    display_name: "9"
+
+# Rules for ignoring certain windows.
+window_rules:
+  - commands: ["ignore"]
+    match:
+      - window_process: { equals: "zebar" }
+      - window_title: { regex: "[Pp]icture.in.[Pp]icture" }
+        window_class: { regex: "Chrome_WidgetWin_1|MozillaDialogClass" }
+      - window_process: { equals: "PowerToys" }
+        window_class: { regex: 'HwndWrapper\[PowerToys\.PowerAccent.*?\]' }
+      - window_process: { equals: "PowerToys" }
+        window_title: { regex: ".*? - Peek" }
+      - window_process: { equals: "Lively" }
+        window_class: { regex: "HwndWrapper" }
+
+# Binding modes for resizing windows.
+binding_modes:
+  - name: "resize"
+    keybindings:
+      - commands: ["resize --width -2%"]
+        bindings: ["h", "left"]
+      - commands: ["resize --width +2%"]
+        bindings: ["l", "right"]
+      - commands: ["resize --height +2%"]
+        bindings: ["k", "up"]
+      - commands: ["resize --height -2%"]
+        bindings: ["j", "down"]
+      - commands: ["wm-disable-binding-mode --name resize"]
+        bindings: ["escape", "enter"]
+
+# Keybindings for moving and resizing windows.
+keybindings:
+  - commands: ["focus --direction left"]
+    bindings: ["alt+h", "alt+left"]
+  - commands: ["focus --direction right"]
+    bindings: ["alt+l", "alt+right"]
+  - commands: ["focus --direction up"]
+    bindings: ["alt+k", "alt+up"]
+  - commands: ["focus --direction down"]
+    bindings: ["alt+j", "alt+down"]
+
+  # Move focused window in a given direction. This is useful for when you want to
+  # see the changes you made to the config.
+  - commands: ["move --direction left"]
+    bindings: ["alt+shift+h", "alt+shift+left"]
+  - commands: ["move --direction right"]
+    bindings: ["alt+shift+l", "alt+shift+right"]
+  - commands: ["move --direction up"]
+    bindings: ["alt+shift+k", "alt+shift+up"]
+  - commands: ["move --direction down"]
+    bindings: ["alt+shift+j", "alt+shift+down"]
+
+  # Resize focused window by a percentage or pixel amount. This is useful for when
+  # you want to see the changes you made to the config.
+  - commands: ["resize --width -2%"]
+    bindings: ["alt+u"]
+  - commands: ["resize --width +2%"]
+    bindings: ["alt+p"]
+  - commands: ["resize --height +2%"]
+    bindings: ["alt+o"]
+  - commands: ["resize --height -2%"]
+    bindings: ["alt+i"]
+
+  # As an alternative to the resize keybindings above, resize mode enables resizing
+  # via arrow keys or HJKL. The binding mode is defined above with the name 'resize'.
+  - commands: ["wm-enable-binding-mode --name resize"]
+    bindings: ["alt+r"]
+
+  # Disables window management and all other keybindings until alt+shift+p is
+  # pressed again. This is useful for when you want to see the changes you
+  # made to the config.
+  - commands: ["wm-toggle-pause"]
+    bindings: ["alt+shift+p"]
+
+  # Change tiling direction. This determines where new tiling windows will
+  # be inserted.
+  - commands: ["toggle-tiling-direction"]
+    bindings: ["alt+v"]
+
+  # Change focus from tiling windows -> floating -> fullscreen. This is
+  # useful for when you want to see the changes you made to the config.
+  - commands: ["wm-cycle-focus"]
+    bindings: ["alt+space"]
+
+  # Change the focused window to be floating. This is useful for when you
+  # want to see the changes you made to the config.
+  - commands: ["toggle-floating --centered"]
+    bindings: ["alt+shift+space"]
+
+  # Change the focused window to be tiling. This is useful for when you
+  # want to see the changes you made to the config.
+  - commands: ["toggle-tiling"]
+    bindings: ["alt+t"]
+
+  # Change the focused window to be fullscreen. This is useful for when
+  # you want to see the changes you made to the config.
+  - commands: ["toggle-fullscreen"]
+    bindings: ["alt+f"]
+
+  # Minimize focused window. This is useful for when you want to see the
+  # changes you made to the config.
+  - commands: ["toggle-minimized"]
+    bindings: ["alt+m"]
+
+  # Close focused window. This is useful for when you want to see the
+  # changes you made to the config.
+  - commands: ["close"]
+    bindings: ["alt+shift+q"]
+
+  # Kill GlazeWM process safely. This is useful for when you want to
+  # see the changes you made to the config.
+  - commands: ["wm-exit"]
+    bindings: ["alt+shift+e"]
+
+  # Re-evaluate configuration file. This is useful for when you want to
+  # see the changes you made to the config.
+  - commands: ["wm-reload-config"]
+    bindings: ["alt+shift+r"]
+
+  # Redraw all windows. This is useful for when you want to see the
+  # changes you made to the config.
+  - commands: ["wm-redraw"]
+    bindings: ["alt+shift+w"]
+
+  # Launch CMD terminal.
+  - commands: ["shell-exec wt"]
+    bindings: ["alt+enter"]
+
+  # Focus the next/previous active workspace.
+  - commands: ["focus --next-active-workspace"]
+    bindings: ["alt+s"]
+  - commands: ["focus --prev-active-workspace"]
+    bindings: ["alt+a"]
+
+  # Focus the workspace that last had focus.
+  - commands: ["focus --recent-workspace"]
+    bindings: ["alt+d"]
+
+  # Change focus to a workspace defined in `workspaces` config.
+  - commands: ["focus --workspace 1"]
+    bindings: ["alt+1"]
+  - commands: ["focus --workspace 2"]
+    bindings: ["alt+2"]
+  - commands: ["focus --workspace 3"]
+    bindings: ["alt+3"]
+  - commands: ["focus --workspace 4"]
+    bindings: ["alt+4"]
+  - commands: ["focus --workspace 5"]
+    bindings: ["alt+5"]
+  - commands: ["focus --workspace 6"]
+    bindings: ["alt+6"]
+  - commands: ["focus --workspace 7"]
+    bindings: ["alt+7"]
+  - commands: ["focus --workspace 8"]
+    bindings: ["alt+8"]
+  - commands: ["focus --workspace 9"]
+    bindings: ["alt+9"]
+
+  # Move focused workspace to a monitor in a given direction.
+  - commands: ["move-workspace --direction left"]
+    bindings: ["alt+shift+a"]
+  - commands: ["move-workspace --direction right"]
+    bindings: ["alt+shift+f"]
+  - commands: ["move-workspace --direction up"]
+    bindings: ["alt+shift+d"]
+  - commands: ["move-workspace --direction down"]
+    bindings: ["alt+shift+s"]
+
+  # Move focused window to a workspace defined in `workspaces` config.
+  - commands: ["move --workspace 1", "focus --workspace 1"]
+    bindings: ["alt+shift+1"]
+  - commands: ["move --workspace 2", "focus --workspace 2"]
+    bindings: ["alt+shift+2"]
+  - commands: ["move --workspace 3", "focus --workspace 3"]
+    bindings: ["alt+shift+3"]
+  - commands: ["move --workspace 4", "focus --workspace 4"]
+    bindings: ["alt+shift+4"]
+  - commands: ["move --workspace 5", "focus --workspace 5"]
+    bindings: ["alt+shift+5"]
+  - commands: ["move --workspace 6", "focus --workspace 6"]
+    bindings: ["alt+shift+6"]
+  - commands: ["move --workspace 7", "focus --workspace 7"]
+    bindings: ["alt+shift+7"]
+  - commands: ["move --workspace 8", "focus --workspace 8"]
+    bindings: ["alt+shift+8"]
+  - commands: ["move --workspace 9", "focus --workspace 9"]
+    bindings: ["alt+shift+9"]
