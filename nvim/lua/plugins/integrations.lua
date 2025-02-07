@@ -1,4 +1,5 @@
 return {
+  -- Rest vim for HTTP
   {
     "rest-nvim/rest.nvim",
     dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -42,14 +43,21 @@ return {
     },
   },
   -- LazyGit integration for Git commands
-  {
-    "kdheepak/lazygit.nvim",
-    keys = {
-      { ";c", ":LazyGit<Return>", silent = true, noremap = true },
-    },
-    dependencies = { "nvim-lua/plenary.nvim" },
+  "kdheepak/lazygit.nvim",
+  lazy = true,
+  cmd = {
+    "LazyGit",
+    "LazyGitConfig",
+    "LazyGitCurrentFile",
+    "LazyGitFilter",
+    "LazyGitFilterCurrentFile",
   },
-
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  keys = {
+    { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+  },
   -- Database management with vim-dadbod-ui
   {
     "kristijanhusak/vim-dadbod-ui",
@@ -63,6 +71,15 @@ return {
     end,
     keys = {
       { "<leader>d", "<cmd>NeoTreeClose<cr><cmd>tabnew<cr>|<cmd>DBUI<cr>", desc = "Open DBUI" },
+    },
+  },
+
+  -- Quarto
+  {
+    "quarto-dev/quarto-nvim",
+    dependencies = {
+      "jmbuhr/otter.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
   },
 }
