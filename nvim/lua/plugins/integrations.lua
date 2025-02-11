@@ -1,4 +1,5 @@
 return {
+  -- HTTP Client Configuration
   {
     "rest-nvim/rest.nvim",
     dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -37,38 +38,44 @@ return {
       {
         "<leader>rr",
         "<cmd>Rest open --url <cr>",
-        desc = "Test the current HTTP request",
+        desc = "🌐 Test the current HTTP request",
       },
       {
-        "<leader>rc",
-        "<cmd>Rest cookies <cr>",
-        desc = "Edit the cookies for the current request",
+        "<leader>rt",
+        "<cmd>Rest cookies <ct>",
+        desc = "🍪 Edit the cookies for the current request",
       },
       {
         "<leader>rs",
-        "<cmd>Rest cookies <cr>",
-        desc = "Edit the cookies for the current request",
+        "<cmd>Rest run <cr>",
+        desc = "🚀 Run the current HTTP request",
       },
     },
   },
-  -- LazyGit integration for Git commands
-  "kdheepak/lazygit.nvim",
-  lazy = false,
-  cmd = {
-    "LazyGit",
-    "LazyGitConfig",
-    "LazyGitCurrentFile",
-    "LazyGitFilter",
-    "LazyGitFilterCurrentFile",
+
+  -- LazyGit Integration
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = false,
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      name = "🔧 Git",
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "📘 Open LazyGit" },
+      { "<leader>lf", "<cmd>LazyGitFilter<cr>", desc = "🔍 Filter Git changes" },
+      { "<leader>lc", "<cmd>LazyGitConfig<cr>", desc = "⚙️ Open LazyGit Config" },
+    },
   },
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  keys = {
-    { "<leader>rG", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-    { "<leader>rC", "<cmd>LazyGitConfig<cr>", desc = "Edit LazyGit config" },
-  },
-  -- Database management with vim-dadbod-ui
+
+  -- Database Management with DBUI
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
@@ -80,17 +87,66 @@ return {
       vim.g.db_ui_use_nerd_fonts = 1
     end,
     keys = {
-      { "<leader>rd", "<cmd>DBUI<cr>", desc = "Open DBUI" },
-      { "<leader>rD", "<cmd>DBUIToggle<cr>", desc = "Toggle DBUI" },
+      name = "🗄️ Database",
+      { "<leader>rb", "<cmd>DBUI<cr>", desc = "📂 Open DBUI" },
+      { "<leader>rB", "<cmd>DBUIToggle<cr>", desc = "🔄 Toggle DBUI" },
+      { "<leader>ra", "<cmd>DBUIAddConnection<cr>", desc = "➕ Add new DB connection" },
     },
   },
 
-  -- Quarto
+  -- Quarto for Literate Programming
   {
     "quarto-dev/quarto-nvim",
     dependencies = {
       "jmbuhr/otter.nvim",
       "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("quarto").setup()
+    end,
+    keys = {
+      name = "📚 Quarto",
+      { "<leader>qv", "<cmd>QuartoPreview<cr>", desc = "🖥️ Preview Quarto document" },
+      { "<leader>qc", "<cmd>QuartoClosePreview<cr>", desc = "❌ Close Quarto preview" },
+    },
+  },
+
+  -- Surround text objects easily
+  {
+    "tpope/vim-surround",
+    keys = {
+      name = "🔄 Surround",
+      { "cs", desc = "♻️ Change surrounding characters" },
+      { "ds", desc = "❌ Delete surrounding characters" },
+      { "ys", desc = "➕ Add surrounding characters" },
+    },
+  },
+
+  -- Comment code easily
+  {
+    "tpope/vim-commentary",
+    keys = {
+      name = "💬 Comment",
+      { "<leader>rc", "<cmd>Commentary<cr>", desc = "📝 Toggle comment" },
+    },
+  },
+
+  -- Terminal Integration
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup({
+        open_mapping = "<leader>tt",
+        direction = "float",
+        float_opts = {
+          border = "curved",
+        },
+      })
+    end,
+    keys = {
+      name = "💻 Terminal",
+      { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "🔄 Toggle Terminal" },
+      { "<leader>ts", "<cmd>ToggleTermSendCurrentLine<cr>", desc = "➡️ Send current line to terminal" },
     },
   },
 }
