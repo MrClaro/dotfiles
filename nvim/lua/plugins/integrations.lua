@@ -1,5 +1,4 @@
 return {
-  -- Rest vim for HTTP
   {
     "rest-nvim/rest.nvim",
     dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -36,15 +35,25 @@ return {
     end,
     keys = {
       {
-        "\\r",
-        "<Plug>RestNvim",
+        "<leader>rr",
+        "<cmd>Rest open --url <cr>",
         desc = "Test the current HTTP request",
+      },
+      {
+        "<leader>rc",
+        "<cmd>Rest cookies <cr>",
+        desc = "Edit the cookies for the current request",
+      },
+      {
+        "<leader>rs",
+        "<cmd>Rest cookies <cr>",
+        desc = "Edit the cookies for the current request",
       },
     },
   },
   -- LazyGit integration for Git commands
   "kdheepak/lazygit.nvim",
-  lazy = true,
+  lazy = false,
   cmd = {
     "LazyGit",
     "LazyGitConfig",
@@ -56,7 +65,8 @@ return {
     "nvim-lua/plenary.nvim",
   },
   keys = {
-    { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+    { "<leader>rG", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+    { "<leader>rC", "<cmd>LazyGitConfig<cr>", desc = "Edit LazyGit config" },
   },
   -- Database management with vim-dadbod-ui
   {
@@ -70,7 +80,8 @@ return {
       vim.g.db_ui_use_nerd_fonts = 1
     end,
     keys = {
-      { "<leader>d", "<cmd>NeoTreeClose<cr><cmd>tabnew<cr>|<cmd>DBUI<cr>", desc = "Open DBUI" },
+      { "<leader>rd", "<cmd>DBUI<cr>", desc = "Open DBUI" },
+      { "<leader>rD", "<cmd>DBUIToggle<cr>", desc = "Toggle DBUI" },
     },
   },
 
