@@ -1,0 +1,37 @@
+{
+  "extras": [
+      "lazyvim.plugins.extras.ai.copilot",
+    "lazyvim.plugins.extras.ai.copilot-chat",
+    "lazyvim.plugins.extras.ai.supermaven",
+    "lazyvim.plugins.extras.ai.tabnine",
+    "lazyvim.plugins.extras.coding.nvim-cmp",
+    "lazyvim.plugins.extras.coding.yanky",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.dap.nlua",
+    "lazyvim.plugins.extras.editor.aerial",
+    "lazyvim.plugins.extras.editor.dial",
+    "lazyvim.plugins.extras.editor.fzf",
+    "lazyvim.plugins.extras.editor.inc-rename",
+    "lazyvim.plugins.extras.lang.angular",
+    "lazyvim.plugins.extras.lang.docker",
+    "lazyvim.plugins.extras.lang.git",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.php",
+    "lazyvim.plugins.extras.lang.prisma",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.sql",
+    "lazyvim.plugins.extras.lang.vue",
+    "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.util.dot",
+    "lazyvim.plugins.extras.util.gitui",
+    "lazyvim.plugins.extras.util.project"
+
+
+
+  ],
+  "install_version": 8,
+  "news": {
+    "NEWS.md": "10960"
+  },
+  "version": 8
+}

@@ -29,7 +29,7 @@ keymap.set("n", "dw", 'vb"_d', opts)
 keymap.set("n", "<C-a>", "gg<S-v>G", opts)
 
 -- Save with root permission (descomentado e corrigido)
-vim.api.nvim_create_user_command("W", "w !sudo tee > /dev/null %", { desc = "Save file with sudo" })
+vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', { desc = "Save file with sudo" })
 
 -- Disable continuations
 keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
@@ -56,6 +56,7 @@ keymap.set("n", "<C-w><down>", "<C-w>-", opts)
 -- Lazygit
 keymap.del("n", "<leader>l")
 keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "LazyGit" })
+
 
 -- Diagnostics
 keymap.set("n", "<C-j>", function()

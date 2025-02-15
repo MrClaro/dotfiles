@@ -115,6 +115,30 @@ return {
     },
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },
+
+  -- Dashboard with custom logo
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+    opts = function(_, opts)
+      local logo = [[
+    █████╗ ██████╗ ██████╗ ██████╗ ███████╗██╗   ██╗
+   ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔════╝██║   ██║
+   ███████║██║  ██║██████╔╝██║  ██║█████╗  ██║   ██║
+   ██╔══██║██║  ██║██╔══██╗██║  ██║██╔══╝  ╚██╗ ██╔╝
+   ██║  ██║██████╔╝██║  ██║██████╔╝███████╗ ╚████╔╝ 
+   ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝  ╚═══╝  
+]]
+      logo = string.rep("\n", 8) .. logo .. "\n\n"
+
+      if not opts.config then
+        opts.config = {}
+      end
+
+      opts.config.header = vim.split(logo, "\n")
+    end,
+  },
+
   -- Show filename at the top of the buffer with incline.nvim
   {
     "b0o/incline.nvim",
