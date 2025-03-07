@@ -1,4 +1,4 @@
-oh-my-posh init fish --config $HOME/.poshthemes/montys.omp.json | source
+oh-my-posh init fish --config $HOME/.poshthemes/catppuccin_macchiato.omp.json | source
 # PATH Configuration
 set -gx PATH "$HOME/.cargo/bin" /opt/nvim-linux65/bin "$HOME/.scripts" "$HOME/.rbenv/shims" "/home/linuxbrew/.linuxbrew/opt/node@23/bin" $PATH
 
@@ -27,3 +27,5 @@ alias ls="eza --icons=always"
 # Zoxide (better cd)
 zoxide init fish | source
 alias cd="z"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
