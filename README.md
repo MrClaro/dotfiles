@@ -13,10 +13,10 @@ To apply my configuration, follow the steps below and make sure you have the rig
 2. **Recommended tools:**
    To enhance your terminal experience, I recommend installing the following tools:
    - `bat` (a stylish alternative to `cat`)
-   - `exa` (an improved `ls` replacement)
+   - `eza` (an improved `ls` replacement)
    - `procs`, `dust`, `tokei`, `ytop`, `tealdeer`, `grex`, `rmesg`, `zoxide`, `delta`
 
-   **Note:** Only **bat**, **exa**, and **zoxide** are required to apply my `.zshrc` configuration.
+   **Note:** Only **bat**, **eza**, and **zoxide** are required to apply my `.zshrc` configuration.
 
    **Note:** To install these tools using `cargo`, simply run:
    ```bash
@@ -35,7 +35,7 @@ To apply my configuration, follow the steps below and make sure you have the rig
 
    Install optional dependencies (using `cargo` where applicable):
    ```bash
-   cargo install bat exa procs dust tokei ytop tealdeer grex rmesg zoxide delta
+   cargo install bat eza procs dust tokei ytop tealdeer grex rmesg zoxide delta
    ```
 
 2. **Clone the Official LazyVim Repository**:
