@@ -70,16 +70,6 @@ end
 return {
 
   {
-    "g0t4/ask-openai.nvim",
-    event = { "CmdlineEnter" },
-    dir = "~/repos/github/g0t4/ask-openai.nvim",
-    opts = {},
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-
-  {
     enabled = vim.tbl_contains(use_ai, "tabnine"),
     "codota/tabnine-nvim",
     build = "./dl_binaries.sh",
