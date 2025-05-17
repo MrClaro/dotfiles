@@ -1,6 +1,6 @@
 local use_ai = {
   -- "avante",
-  -- "copilot",
+  "copilot",
   -- "tabnine",
   "supermaven",
 }

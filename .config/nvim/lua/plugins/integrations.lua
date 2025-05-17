@@ -20,6 +20,69 @@ return {
       { "<leader>lc", "<cmd>LazyGitConfig<cr>", desc = "⚙️ Open LazyGit Config" },
     },
   },
+  {
+    "aaronhallaert/advanced-git-search.nvim",
+    dependencies = {
+      "tpope/vim-fugitive",
+      "tpope/vim-rhubarb",
+    },
+  },
+
+  -- Better Git Integration
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup({
+        signs = {
+          add = { text = "│" },
+          change = { text = "│" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked = { text = "┆" },
+        },
+        on_attach = function(buffer)
+          local gs = package.loaded.gitsigns
+          local function map(mode, l, r, desc)
+            vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+          end
+          map("n", "<leader>gb", gs.blame_line, "Git Blame")
+          map("n", "<leader>gd", gs.diffthis, "Git Diff")
+          map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+        end,
+      })
+    end,
+  },
+
+  -- Session Management
+  {
+    "olimorris/persisted.nvim",
+    config = function()
+      require("persisted").setup({
+        save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"),
+        command = "VimLeavePre",
+        use_git_branch = true,
+        autosave = true,
+        autoload = true,
+        on_autoload_no_session = function()
+          vim.notify("No existing session to load.")
+        end,
+      })
+      vim.keymap.set("n", "<leader>ss", "<cmd>SessionSave<cr>", { desc = "Save Session" })
+      vim.keymap.set("n", "<leader>sl", "<cmd>SessionLoad<cr>", { desc = "Load Session" })
+    end,
+  },
+
+  -- TODO Comments
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("todo-comments").setup()
+      vim.keymap.set("n", "<leader>td", "<cmd>TodoTrouble<cr>", { desc = "Todo Trouble" })
+      vim.keymap.set("n", "<leader>tf", "<cmd>TodoTelescope<cr>", { desc = "Todo Telescope" })
+    end,
+  },
 
   -- Quarto for Literate Programming
   {
@@ -37,6 +100,7 @@ return {
       { "<leader>qc", "<cmd>QuartoClosePreview<cr>", desc = "❌ Close Quarto preview" },
     },
   },
+
   -- Comment code easily
   {
     "tpope/vim-commentary",
@@ -45,6 +109,7 @@ return {
       { "<leader>rc", "<cmd>Commentary<cr>", desc = "📝 Toggle comment" },
     },
   },
+
   -- Database Management with DBUI
   {
     "kristijanhusak/vim-dadbod-ui",
@@ -63,6 +128,7 @@ return {
       { "<leader>la", "<cmd>DBUIAddConnection<cr>", desc = "➕ Add new DB connection" },
     },
   },
+
   -- HTTP Client Configuration
   {
     "rest-nvim/rest.nvim",
@@ -114,6 +180,31 @@ return {
         "<cmd>Rest run <cr>",
         desc = "🚀 Run the current HTTP request",
       },
+    },
+  },
+  -- Hardtime
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {
+      java = {
+        enabled = true,
+        show_dependencies = true,
+        show_implementations = true,
+      },
+    },
+  },
+  {
+    "exosyphon/telescope-color-picker.nvim",
+    config = function()
+      vim.keymap.set("n", "<leader>uC", "<cmd>Telescope colors<CR>", { desc = "Telescope Color Picker" })
+    end,
+  },
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1001, -- this plugin needs to run before anything else
+    opts = {
+      rocks = { "magick" },
     },
   },
 }

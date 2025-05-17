@@ -1,5 +1,5 @@
 return {
-  { -- was missing this
+  {
     "catppuccin/nvim",
     lazy = true,
     name = "catppuccin",
@@ -40,7 +40,7 @@ return {
         which_key = true,
       },
     },
-  }, -- and this
+  },
   {
     "LazyVim/LazyVim",
     opts = {

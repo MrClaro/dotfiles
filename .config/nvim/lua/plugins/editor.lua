@@ -12,7 +12,6 @@ return {
       },
     },
   },
-
   -- Git integration
   {
     "dinhhuy258/git.nvim",

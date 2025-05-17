@@ -19,6 +19,10 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
+    {
+      "L3MON4D3/LuaSnip",
+      enabled = true,
+    },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -36,6 +40,7 @@ require("lazy").setup({
   }, -- automatically check for plugin updates
   performance = {
     rtp = {
+      { "L3MON4D3/LuaSnip", enabled = true },
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",

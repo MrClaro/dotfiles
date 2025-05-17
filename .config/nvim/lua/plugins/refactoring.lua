@@ -5,7 +5,7 @@ return {
     cmd = "IncRename",
     keys = {
       {
-        "<leader>rn",
+        "<leader>cr",
         function()
           return ":IncRename " .. vim.fn.expand("<cword>")
         end,
@@ -23,7 +23,7 @@ return {
     "ThePrimeagen/refactoring.nvim",
     keys = {
       {
-        "<leader>r",
+        "<leader>rs",
         function()
           require("refactoring").select_refactor({
             show_success_message = true,
@@ -48,40 +48,97 @@ return {
   },
 
   -- Structural Editing (Tree-sitter powered)
+  { "nvim-treesitter/nvim-treesitter-textobjects" },
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-refactor",
-        config = function()
-          require("nvim-treesitter.configs").setup({
-            refactor = {
-              highlight_definitions = {
-                enable = true,
-              },
-              highlight_current_scope = {
-                enable = true,
-              },
-              smart_rename = {
-                enable = true,
-                keymaps = {
-                  smart_rename = "grr",
-                },
-              },
-              navigation = {
-                enable = true,
-                keymaps = {
-                  goto_definition = "gnd",
-                  list_definitions = "gnD",
-                  list_definitions_toc = "gO",
-                  goto_next_usage = "<a-*>",
-                  goto_previous_usage = "<a-#>",
-                },
-              },
+    build = ":TSUpdate",
+    config = function()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = {
+          "javascript",
+          "typescript",
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "elixir",
+          "erlang",
+          "heex",
+          "eex",
+          "kotlin",
+          "jq",
+          "dockerfile",
+          "json",
+          "html",
+          "terraform",
+          "go",
+          "tsx",
+          "bash",
+          "ruby",
+          "markdown",
+          "java",
+          "astro",
+        },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<C-space>",
+            node_incremental = "<C-space>",
+            scope_incremental = "<C-CR>",
+            node_decremental = "<bs>",
+          },
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["aa"] = "@parameter.outer",
+              ["ia"] = "@parameter.inner",
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
             },
-          })
-        end,
-      },
-    },
+          },
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
+          },
+          swap = {
+            enable = true,
+            swap_next = {
+              ["<leader>p"] = "@parameter.inner",
+            },
+            swap_previous = {
+              ["<leader>ps"] = "@parameter.inner",
+            },
+          },
+        },
+      })
+    end,
   },
 }
