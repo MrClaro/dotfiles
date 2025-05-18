@@ -90,6 +90,23 @@ Start it:
 tmuxinator start my-project
 ```
 
+
+
+---
+
+## 🙏 Credits
+
+This setup was heavily inspired by the amazing work of:
+
+- [craftzdog](https://github.com/craftzdog) – for the foundational LazyVim configuration.
+- [exosyphon](https://github.com/exosyphon) – for the LSP configuration structure.
+- [nikolovlazar](https://github.com/nikolovlazar) – for the file organization idea and programming language configurations.
+
+
+Big thanks to these developers — their configs helped shape this environment.
+
+Make sure to check out their repositories for more awesome setups and ideas!
+
 ---
 
 Enjoy the setup! Feel free to fork or customise it for your own workflow.
