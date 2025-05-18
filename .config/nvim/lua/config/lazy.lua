@@ -27,7 +27,7 @@ require("lazy").setup({
     -- ✅ Seus plugins (depois dos imports LazyVim)
     { import = "plugins.coding" },
     { import = "plugins.dap" },
-    { import = "plugins.formating" },
+    --   { import = "plugins.formating" },
     { import = "plugins.integrations" },
     { import = "plugins.languages" },
     { import = "plugins.test" },

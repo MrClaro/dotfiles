@@ -3,7 +3,6 @@ local supported = {
   "graphql",
   "handlebars",
   "html",
-  "java",
   "javascript",
   "javascriptreact",
   "json",

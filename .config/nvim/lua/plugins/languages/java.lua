@@ -60,10 +60,29 @@ return {
                   "gradlew",
                   ".git",
                 },
+
                 jdtls = {
                   version = "v1.43.0",
                   config = {
                     bundles = bundles,
+                    settings = {
+                      java = {
+                        inlayHints = {
+                          parameterNames = {
+                            enabled = "all",
+                          },
+                          parameterTypes = {
+                            enabled = true,
+                          },
+                          variableTypes = {
+                            enabled = true,
+                          },
+                          lambdaParameterTypes = {
+                            enabled = true,
+                          },
+                        },
+                      },
+                    },
                   },
                 },
                 lombok = { version = "nightly" },
