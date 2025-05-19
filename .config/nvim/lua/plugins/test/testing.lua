@@ -118,4 +118,37 @@ return {
       { "<leader>td", function() require("neotest").run.run({strategy = "dap"}) end, desc = "Debug Nearest (Neotest)" },
     },
   },
+  -- Python Testing
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "nvim-neotest/neotest-python",
+    },
+    opts = {
+      adapters = {
+        ["neotest-python"] = {
+          -- Here you can specify the settings for the adapter, i.e.
+          -- runner = "pytest",
+          -- python = ".venv/bin/python",
+        },
+      },
+    },
+  },
+  -- Java Testing
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "nvim-java/nvim-java-test",
+    },
+    opts = {
+      adapters = {
+        ["neotest-java"] = {
+          -- Here you can specify the settings for the adapter
+          -- runner = "junit",
+        },
+      },
+    },
+  },
 }

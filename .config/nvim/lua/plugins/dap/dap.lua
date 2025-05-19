@@ -31,6 +31,13 @@ return {
           virt_text_win_col = 80,
         },
       },
+      {
+        "williamboman/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          table.insert(opts.ensure_installed, "js-debug-adapter")
+        end,
+      },
     },
 
     -- stylua: ignore
@@ -90,6 +97,7 @@ return {
       end
 
       require("overseer").enable_dap()
+      require("config.debug-configurations")
     end,
   },
 
@@ -131,7 +139,9 @@ return {
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
-      handlers = {},
+      handlers = {
+        python = function() end,
+      },
 
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
@@ -141,5 +151,27 @@ return {
     },
     -- mason-nvim-dap is loaded when nvim-dap loads
     config = function() end,
+  },
+
+  {
+    "mfussenegger/nvim-dap-python",
+    keys = {
+      {
+        "<leader>dPt",
+        function()
+          require("dap-python").test_method()
+        end,
+        desc = "Debug Method",
+        ft = "python",
+      },
+      {
+        "<leader>dPc",
+        function()
+          require("dap-python").test_class()
+        end,
+        desc = "Debug Class",
+        ft = "python",
+      },
+    },
   },
 }

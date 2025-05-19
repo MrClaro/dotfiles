@@ -16,15 +16,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- ✅ LazyVim core (deve vir primeiro)
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
-    -- ✅ LazyVim extras (se houver)
     -- { import = "lazyvim.plugins.extras.lang.java" },
     -- { import = "lazyvim.plugins.extras.coding.luasnip" },
     -- { import = "lazyvim.plugins.extras.dap.core" },
 
-    -- ✅ Seus plugins (depois dos imports LazyVim)
     { import = "plugins.coding" },
     { import = "plugins.dap" },
     --   { import = "plugins.formating" },
@@ -33,7 +30,6 @@ require("lazy").setup({
     { import = "plugins.test" },
     { import = "plugins.ui" },
 
-    -- Plugins extras manuais (também depois de tudo)
     {
       "L3MON4D3/LuaSnip",
       enabled = true,
@@ -50,7 +46,6 @@ require("lazy").setup({
   },
   performance = {
     rtp = {
-      -- Nota: esse bloco `{ "L3MON4D3/LuaSnip", enabled = true }` aqui é redundante com o de cima
       disabled_plugins = {
         "gzip",
         -- "matchit",

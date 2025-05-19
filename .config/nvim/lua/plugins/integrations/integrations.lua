@@ -12,6 +12,8 @@ return {
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
     },
     keys = {
       name = "🔧 Git",
@@ -180,31 +182,6 @@ return {
         "<cmd>Rest run <cr>",
         desc = "🚀 Run the current HTTP request",
       },
-    },
-  },
-  -- Hardtime
-  {
-    "m4xshen/hardtime.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    opts = {
-      java = {
-        enabled = true,
-        show_dependencies = true,
-        show_implementations = true,
-      },
-    },
-  },
-  {
-    "exosyphon/telescope-color-picker.nvim",
-    config = function()
-      vim.keymap.set("n", "<leader>uC", "<cmd>Telescope colors<CR>", { desc = "Telescope Color Picker" })
-    end,
-  },
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1001,
-    opts = {
-      rocks = { "magick" },
     },
   },
 }
