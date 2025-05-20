@@ -1,10 +1,8 @@
 local dap = require("dap")
 local mason_registry = require("mason-registry")
 
--- Caminho base do Mason
 local mason_path = vim.fn.stdpath("data") .. "/mason"
 
--- Configuração do adaptador pwa-node
 dap.adapters["pwa-node"] = {
   type = "server",
   host = "localhost",
@@ -18,7 +16,38 @@ dap.adapters["pwa-node"] = {
   },
 }
 
--- Alias para o adaptador node
+dap.configurations.java = {
+  {
+    type = "java",
+    request = "attach",
+    name = "Debug (Attach) local ondemand webui process",
+    -- pid = require('dap.utils').pick_process,
+    processId = "${command:pickProcess}",
+    hostName = "localhost",
+    port = 9598,
+    -- projectName = "${workspaceFolderBasename}"
+    -- it seems  to need the specific project name in order to function correctly when evaluating expressions in repl, etc.
+    projectName = "webui",
+  },
+  {
+    type = "java",
+    request = "attach",
+    name = "Debug (Attach) local process ",
+    processId = "${command:pickProcess}",
+    hostName = "localhost",
+    port = 9598,
+    projectName = "${workspaceFolderBasename}",
+  },
+  {
+    type = "java",
+    request = "launch",
+    name = "Launch current file",
+    hostName = "localhost",
+    port = 9598,
+    projectName = "webui",
+  },
+}
+
 dap.adapters["node"] = function(cb, config)
   if config.type == "node" then
     config.type = "pwa-node"
@@ -31,15 +60,12 @@ dap.adapters["node"] = function(cb, config)
   end
 end
 
--- Tipos de arquivos JavaScript/TypeScript
 local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
 
--- Mapeamento de tipos para filetypes
 local vscode = require("dap.ext.vscode")
 vscode.type_to_filetypes["node"] = js_filetypes
 vscode.type_to_filetypes["pwa-node"] = js_filetypes
 
--- Configurações para cada tipo de arquivo
 for _, language in ipairs(js_filetypes) do
   dap.configurations[language] = {
     {
@@ -59,12 +85,10 @@ for _, language in ipairs(js_filetypes) do
   }
 end
 
--- Configuração para Python
 local debugpy_path = mason_path .. "/packages/debugpy/venv"
 local python_path = vim.fn.has("win32") == 1 and debugpy_path .. "/Scripts/pythonw.exe" or debugpy_path .. "/bin/python"
 require("dap-python").setup(python_path)
 
--- Configuração para PHP
 local php_debug_adapter_path = mason_path .. "/packages/php-debug-adapter/extension/out/phpDebug.js"
 dap.adapters.php = {
   type = "executable",

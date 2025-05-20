@@ -30,6 +30,11 @@ function SwitchCopilot()
   end
 end
 
+function SupermavenIsVisible()
+  local ok, preview = pcall(require, "supermaven-nvim.completion_preview")
+  return ok and preview.is_displaying()
+end
+
 -- Configuration for Avante if needed
 local avante = {
   enabled = vim.tbl_contains(use_ai, "avante"),
@@ -86,14 +91,14 @@ return {
       })
     end,
   },
-
   {
     enabled = vim.tbl_contains(use_ai, "supermaven"),
     "supermaven-inc/supermaven-nvim",
     config = function()
       require("supermaven-nvim").setup({
         keymaps = {
-          accept_word = "<M-Right>",
+          accept_keymap = "<Tab>",
+          dismiss_keymap = "<C-]>",
         },
         color = {
           suggestion_color = "#ffffff",
@@ -127,8 +132,8 @@ return {
         return " " -- Inactive
       end
 
-      vim.keymap.set("n", "<F13>", ":lua SwitchCopilot()<CR>")
-      vim.keymap.set("i", "<F13>", "<Esc>:lua SwitchCopilot()<CR>a")
+      vim.keymap.set("n", "<F8>", ":lua SwitchCopilot()<CR>")
+      vim.keymap.set("i", "<F8>", "<Esc>:lua SwitchCopilot()<CR>a")
     end,
   },
 
@@ -136,35 +141,43 @@ return {
     enabled = vim.tbl_contains(use_ai, "copilot"),
     "github/copilot.vim",
     config = function()
+      vim.g.copilot_no_tab_map = true
+
+      vim.api.nvim_set_keymap(
+        "i",
+        "<Tab>",
+        'copilot#Accept("<Tab>")',
+        { expr = true, silent = true, noremap = true, replace_keycodes = false }
+      )
+
       vim.cmd([[
+      function! GetStatusLineCopilot()
+        if exists('*copilot#Enabled') && copilot#Enabled()
+          return ' '
+        else
+          return ' '
+        endif
+      endfunction
 
-                function! GetStatusLineCopilot()
-                    if exists('*copilot#Enabled') && copilot#Enabled()
-                        return ' '
-                    else
-                        return ' '
-                    endif
-                endfunction
+      function! ToggleCopilot()
+        if copilot#Enabled()
+          Copilot disable
+        else
+          Copilot enable
+        endif
+      endfunction
 
-                function! ToggleCopilot()
-                    if copilot#Enabled()
-                        Copilot disable
-                    else
-                        Copilot enable
-                    endif
-                endfunction
-
-                :inoremap <F13> <Esc>:call ToggleCopilot()<CR>a
-                :nnoremap <F13> :call ToggleCopilot()<CR>
-
-            ]])
+      :inoremap <F8> <Esc>:call ToggleCopilot()<CR>a
+      :nnoremap <F8> :call ToggleCopilot()<CR>
+    ]])
 
       -- Set Copilot suggestion color
       vim.api.nvim_set_hl(0, "CopilotSuggestion", {
-        fg = "#ff0000",
+        fg = "#963e7c",
         force = true,
       })
     end,
   },
+
   avante,
 }

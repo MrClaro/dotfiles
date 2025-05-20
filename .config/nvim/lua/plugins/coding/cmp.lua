@@ -34,6 +34,7 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
+
       mapping = cmp.mapping({
         ["<C-p>"] = cmp.mapping.select_prev_item(),
         ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -41,8 +42,28 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-f>"] = cmp_action.luasnip_jump_forward(),
         ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-        ["<Tab>"] = cmp_action.luasnip_supertab(),
-        ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
+
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          local copilot_visible = vim.fn["copilot#GetDisplayedSuggestion"] ~= nil
+            and vim.fn["copilot#GetDisplayedSuggestion"]() ~= ""
+
+          local supermaven_visible = false
+          pcall(function()
+            supermaven_visible = require("supermaven-nvim.completion_preview").is_displaying()
+          end)
+
+          if supermaven_visible then
+            require("supermaven-nvim.api").accept()
+          elseif copilot_visible then
+            vim.fn.feedkeys(vim.fn["copilot#Accept"]("<Tab>"), "")
+          elseif cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
       }),
       sources = {
         { name = "nvim_lsp" },
