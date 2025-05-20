@@ -75,55 +75,27 @@ end
 return {
 
   {
-    enabled = vim.tbl_contains(use_ai, "tabnine"),
-    "codota/tabnine-nvim",
-    build = "./dl_binaries.sh",
-    config = function()
-      require("tabnine").setup({
-        disable_auto_comment = true,
-        accept_keymap = "<Tab>",
-        dismiss_keymap = "<C-]>",
-        debounce_ms = 800,
-        suggestion_color = { gui = "#808080", cterm = 244 },
-        exclude_filetypes = { "TelescopePrompt", "NvimTree" },
-        log_file_path = nil,
-        ignore_certificate_errors = false,
-      })
-    end,
-  },
-  {
     enabled = vim.tbl_contains(use_ai, "supermaven"),
     "supermaven-inc/supermaven-nvim",
     config = function()
       require("supermaven-nvim").setup({
         keymaps = {
-          accept_keymap = "<Tab>",
-          dismiss_keymap = "<C-]>",
+          accept_suggestion = "<C-y>",
+          clear_suggestion = "<C-]>",
+          accept_word = "<C-j>",
         },
+        ignore_filetypes = { cpp = true }, -- or { "cpp", }
         color = {
           suggestion_color = "#ffffff",
           cterm = 244,
         },
+        log_level = "info", -- set to "off" to disable logging completely
+        disable_inline_completion = false, -- disables inline completion for use with cmp
+        disable_keymaps = false, -- disables built in keymaps for more manual control
+        condition = function()
+          return false
+        end,
       })
-
-      -- Override suggestion color
-      local function override_suggestion_color()
-        vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
-          group = "supermaven",
-          pattern = "*",
-          callback = function()
-            local group_name = require("supermaven-nvim.completion_preview").suggestion_group
-            vim.api.nvim_set_hl(0, group_name, {
-              fg = "#ffffff",
-              italic = true,
-              underline = true,
-            })
-          end,
-        })
-      end
-
-      override_suggestion_color()
-
       function GetStatusLineSupermaven()
         local api = require("supermaven-nvim.api")
         if api.is_running() then

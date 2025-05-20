@@ -94,12 +94,17 @@ return {
     },
   },
   -- Status line customization with lualine
+
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
-      local LazyVim = require("lazyvim.util")
+      local Util = require("lazyvim.util")
+      local ai_status = require("plugins.coding.utils.ai_status")
+
+      opts.sections.lualine_c[1] = ai_status.get_ai_status
+
       opts.sections.lualine_c[4] = {
-        LazyVim.lualine.pretty_path({
+        Util.lualine.pretty_path({
           length = 0,
           relative = "cwd",
           modified_hl = "MatchParen",
