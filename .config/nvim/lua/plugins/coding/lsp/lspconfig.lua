@@ -248,7 +248,7 @@ return {
     }
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "clangd", "bashls", "neocmake", "lua_ls", "marksman" },
+      ensure_installed = { "clangd", "bashls", "neocmake", "lua_ls", "marksman", "java-debug-adapter", "java-test" },
     })
     require("mason-lspconfig").setup_handlers({
       function(server_name)

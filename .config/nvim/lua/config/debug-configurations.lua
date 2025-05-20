@@ -1,7 +1,22 @@
 local dap = require("dap")
-local mason_registry = require("mason-registry")
-
 local mason_path = vim.fn.stdpath("data") .. "/mason"
+
+dap.configurations.java = {
+  {
+    type = "java",
+    request = "launch",
+    name = "Launch file local",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
+  {
+    type = "java",
+    request = "attach",
+    name = "Debug (Attach) - Remote localhost",
+    hostName = "127.0.0.1",
+    port = 5005,
+  },
+}
 
 dap.adapters["pwa-node"] = {
   type = "server",
@@ -13,38 +28,6 @@ dap.adapters["pwa-node"] = {
       mason_path .. "/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
       "${port}",
     },
-  },
-}
-
-dap.configurations.java = {
-  {
-    type = "java",
-    request = "attach",
-    name = "Debug (Attach) local ondemand webui process",
-    -- pid = require('dap.utils').pick_process,
-    processId = "${command:pickProcess}",
-    hostName = "localhost",
-    port = 9598,
-    -- projectName = "${workspaceFolderBasename}"
-    -- it seems  to need the specific project name in order to function correctly when evaluating expressions in repl, etc.
-    projectName = "webui",
-  },
-  {
-    type = "java",
-    request = "attach",
-    name = "Debug (Attach) local process ",
-    processId = "${command:pickProcess}",
-    hostName = "localhost",
-    port = 9598,
-    projectName = "${workspaceFolderBasename}",
-  },
-  {
-    type = "java",
-    request = "launch",
-    name = "Launch current file",
-    hostName = "localhost",
-    port = 9598,
-    projectName = "webui",
   },
 }
 
