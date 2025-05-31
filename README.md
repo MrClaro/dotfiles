@@ -1,7 +1,7 @@
-# 🧰 My Setup2Dev
+# 🧰 My Dev Environment Setup
 
-Welcome to my personal development environment setup!  
-This repository contains my configuration files and preferred tools to create a productive and minimal terminal-based workflow.
+Welcome to my personal development environment!  
+This repository contains all my configuration files and preferred tools for a productive, minimal, and highly customizable terminal-based workflow.
 
 ---
 
@@ -9,16 +9,16 @@ This repository contains my configuration files and preferred tools to create a 
 
 ### ✅ Essential Installations
 
-Ensure you have the following tools installed:
+Make sure to have the following tools installed:
 
 - **Neovim** (main editor – minimum version: `0.9.5`)
-- **LazyVim** (Neovim configuration framework)
+- **LazyVim** (Neovim config framework)
 - **Tmux** (terminal multiplexer)
 - **TPM** (Tmux Plugin Manager)
 - **Luarocks** (Lua package manager for Neovim plugins)
-- **Tmuxinator** (for managing Tmux sessions via YAML)
+- **Tmuxinator** (manage Tmux sessions with YAML)
 
-Install them with:
+You can install most of them with:
 
 ```bash
 sudo pacman -S neovim tmux luarocks git ripgrep fzf thefuck ruby
@@ -27,32 +27,34 @@ gem install tmuxinator
 
 ---
 
-### 🐟 I Use Fish Shell
+### 🐟 Using the Fish Shell
 
-I use **Fish** as my default shell due to its user-friendly syntax and interactive capabilities.
+I use **Fish** as my default shell for its user-friendly syntax and interactive features.
 
-To use Fish:
+To install and set Fish as your default shell:
 
 ```bash
 sudo pacman -S fish
 chsh -s $(which fish)
 ```
 
-#### 🎨 Add Styling with Oh My Posh
+#### 🎨 Enhance Your Prompt with Oh My Posh
+
+Add beautiful styling to your terminal prompt:
 
 ```bash
 curl -s https://ohmyposh.dev/install.sh | bash -s
 ```
 
-Then follow instructions at [ohmyposh.dev](https://ohmyposh.dev) to configure your prompt.
+Follow their guide at [ohmyposh.dev](https://ohmyposh.dev) for further configuration.
 
 ---
 
 ## 💻 Recommended Terminal Tools
 
-For an improved terminal experience, install:
+For an improved terminal experience, I recommend installing:
 
-- `bat` – colourful alternative to `cat`
+- `bat` – colorful alternative to `cat`
 - `eza` – modern replacement for `ls`
 - `zoxide` – smarter `cd`
 - `procs` – modern replacement for `ps`
@@ -64,19 +66,19 @@ For an improved terminal experience, install:
 - `rmesg` – readable `dmesg`
 - `delta` – improved `git diff`
 
-Install via Cargo:
+Install them via Cargo:
 
 ```bash
 cargo install bat eza zoxide procs dust tokei ytop tealdeer grex rmesg delta
 ```
 
-> **Note:** `bat`, `eza`, and `zoxide` are essential for my Fish shell setup.
+> **Tip:** `bat`, `eza`, and `zoxide` are essential for my Fish shell setup.
 
 ---
 
-## 📂 Tmuxinator Projects
+## 📂 Managing Projects with Tmuxinator
 
-I manage all Tmux sessions with **Tmuxinator**, allowing quick launch of custom dev environments using YAML files.
+All my Tmux sessions are managed with **Tmuxinator**, enabling quick launch of custom development environments described in YAML files.
 
 Create a project:
 
@@ -84,29 +86,50 @@ Create a project:
 tmuxinator new my-project
 ```
 
-Start it:
+Start a project:
 
 ```bash
 tmuxinator start my-project
 ```
 
+---
 
+## 📁 Repository Structure
+
+- `.config/nvim/` — Neovim configuration (based on LazyVim)
+- `.config/fish/` — Fish shell configuration and functions
+- `.tmux.conf` — Tmux main configuration
+- `.tmuxinator/` — Tmuxinator project files
+- ...and more!
 
 ---
 
 ## 🙏 Credits
 
-This setup was heavily inspired by the amazing work of:
+This configuration was inspired by the awesome work of:
 
-- [craftzdog](https://github.com/craftzdog) – for the foundational LazyVim configuration.
-- [exosyphon](https://github.com/exosyphon) – for the LSP configuration structure.
-- [nikolovlazar](https://github.com/nikolovlazar) – for the file organization idea and programming language configurations.
+- [craftzdog](https://github.com/craftzdog) – foundational LazyVim config
+- [exosyphon](https://github.com/exosyphon) – LSP config structure
+- [nikolovlazar](https://github.com/nikolovlazar) – file organization and language config ideas
 
-
-Big thanks to these developers — their configs helped shape this environment.
-
-Make sure to check out their repositories for more awesome setups and ideas!
+Big thanks to these developers—their setups helped shape this environment.  
+Check out their repositories for more inspiration!
 
 ---
 
-Enjoy the setup! Feel free to fork or customise it for your own workflow.
+## 🚀 Getting Started
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/MrClaro/dotfiles.git
+   ```
+2. Copy/symlink the configs to your `$HOME` directory or use a tool like [GNU Stow](https://www.gnu.org/software/stow/).
+3. Install all required dependencies (see above).
+4. Launch your terminal and enjoy your new workflow!
+
+---
+
+Enjoy the setup!  
+Feel free to fork, adapt, or contribute to improve your own environment.
+
+---
