@@ -10,10 +10,15 @@ return {
     "hrsh7th/cmp-cmdline",
     "saadparwaiz1/cmp_luasnip",
     "VonHeikemen/lsp-zero.nvim",
+    "mlaursen/vim-react-snippets",
   },
 
   config = function()
     local cmp_action = require("lsp-zero").cmp_action()
+
+    require("vim-react-snippets").lazy_load()
+    local config = require("vim-react-snippets.config")
+    config.readonly_props = false
 
     local ok_cmp, cmp = pcall(require, "cmp")
     if not ok_cmp then
