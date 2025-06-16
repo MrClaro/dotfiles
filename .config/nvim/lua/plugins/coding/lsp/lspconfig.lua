@@ -1,7 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    { "williamboman/mason.nvim" },
+    { "mason-org/mason.nvim" },
     { "jay-babu/mason-nvim-dap.nvim" },
     {
       "rcarriga/nvim-dap-ui",
@@ -36,7 +36,7 @@ return {
     {
       "saadparwaiz1/cmp_luasnip",
     },
-    { "williamboman/mason-lspconfig.nvim" },
+    { "mason-org/mason-lspconfig.nvim" },
     { "onsails/lspkind.nvim" },
     {
       "pmizio/typescript-tools.nvim",
