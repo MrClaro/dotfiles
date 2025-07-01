@@ -184,4 +184,9 @@ return {
       },
     },
   },
+  {
+    "nvzone/volt",
+    { "nvzone/timerly", cmd = "TimerlyToggle" },
+  },
+  { "wakatime/vim-wakatime", lazy = false },
 }

@@ -58,7 +58,7 @@ local config = {
   },
 
   init_options = {
-    bundles = {},
+    extendedClientCapabilities = extendedClientCapabilities,
   },
 }
 require("jdtls").start_or_attach(config)
@@ -84,3 +84,14 @@ vim.keymap.set(
   "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
   { desc = "Extract Method" }
 )
+
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+  callback = function()
+    vim.lsp.buf.inlay_hint(0, true)
+  end,
+})
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+  callback = function()
+    vim.lsp.buf.inlay_hint(0, false)
+  end,
+})
