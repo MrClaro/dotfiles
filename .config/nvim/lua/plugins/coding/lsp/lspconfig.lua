@@ -112,33 +112,47 @@ return {
           vim.lsp.buf.hover({
             border = "rounded",
           })
-        end, { desc = "Show hover information", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "Show hover information" }))
+
         vim.keymap.set("n", "<leader>vws", function()
           vim.lsp.buf.workspace_symbol()
-        end, { desc = "List workspace symbols", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "List workspace symbols" }))
+
         vim.keymap.set("n", "]d", function()
           vim.diagnostic.jump({ count = 1, float = true })
-        end, { desc = "Go to next diagnostic", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "Go to next diagnostic" }))
+
         vim.keymap.set("n", "[d", function()
           vim.diagnostic.jump({ count = -1, float = true })
-        end, { desc = "Go to previous diagnostic", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "Go to previous diagnostic" }))
+
         vim.keymap.set("n", "<M-CR>", function()
           vim.lsp.buf.code_action()
-        end, { desc = "Show code actions", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "Show code actions" }))
+
         vim.keymap.set("n", "<leader>vrr", function()
           vim.lsp.buf.references()
-        end, { desc = "Find references", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "Find references" }))
+
         vim.keymap.set("n", "<leader>vrn", function()
           vim.lsp.buf.rename()
-        end, { desc = "Rename symbol", unpack(opts) })
+        end, vim.tbl_extend("force", opts, { desc = "Rename symbol" }))
+
         vim.keymap.set("i", "<C-h>", function()
           vim.lsp.buf.signature_help()
-        end, { desc = "Show signature help", unpack(opts) })
-        vim.keymap.set("n", "<space>eE", vim.diagnostic.open_float, { desc = "Show error on cursor", unpack(opts) })
-        vim.keymap.set({ "n" }, "<Leader>K", function()
+        end, vim.tbl_extend("force", opts, { desc = "Show signature help" }))
+
+        vim.keymap.set("n", "<space>eE", function()
+          vim.diagnostic.open_float()
+        end, vim.tbl_extend("force", opts, { desc = "Show error on cursor" }))
+
+        vim.keymap.set("n", "<Leader>K", function()
           vim.lsp.buf.signature_help()
-        end, { silent = true, noremap = true, desc = "toggle signature" })
-        vim.keymap.set("n", "<leader>f", require("conform").format, { desc = "Format buffer" })
+        end, vim.tbl_extend("force", opts, { silent = true, noremap = true, desc = "toggle signature" }))
+
+        vim.keymap.set("n", "<leader>f", function()
+          require("conform").format()
+        end, vim.tbl_extend("force", opts, { desc = "Format buffer" }))
       end,
     })
     --#endregion
