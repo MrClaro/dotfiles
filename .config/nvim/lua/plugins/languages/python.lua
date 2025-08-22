@@ -1,6 +1,5 @@
 local lsp = "pyright"
 local ruff = "ruff"
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -17,35 +16,8 @@ return {
               logLevel = "error",
             },
           },
-          keys = {
-            {
-              "<leader>co",
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.organizeImports" },
-                  diagnostics = {},
-                },
-              }),
-              desc = "Organize Imports",
-            },
-          },
         },
-        ruff_lsp = {
-          keys = {
-            {
-              "<leader>co",
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.organizeImports" },
-                  diagnostics = {},
-                },
-              }),
-              desc = "Organize Imports",
-            },
-          },
-        },
+        ruff_lsp = {},
       },
       setup = {
         [ruff] = function()
@@ -99,6 +71,25 @@ return {
       { "<leader>vs", "<cmd>VenvSelect<cr>" },
       -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
       { "<leader>vc", "<cmd>VenvSelectCached<cr>" },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    keys = {
+      {
+        "<leader>co",
+        function()
+          vim.lsp.buf.code_action({
+            apply = true,
+            context = {
+              only = { "source.organizeImports" },
+              diagnostics = {},
+            },
+          })
+        end,
+        desc = "Organize Imports",
+        ft = "python",
+      },
     },
   },
 }
