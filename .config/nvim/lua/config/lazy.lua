@@ -18,10 +18,6 @@ require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
-    -- { import = "lazyvim.plugins.extras.lang.java" },
-    -- { import = "lazyvim.plugins.extras.coding.luasnip" },
-    -- { import = "lazyvim.plugins.extras.dap.core" },
-
     { import = "plugins.coding" },
     { import = "plugins.dap" },
     --   { import = "plugins.formating" },
