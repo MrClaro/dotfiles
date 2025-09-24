@@ -79,15 +79,6 @@ return {
     end,
   },
 
-  -- Startup time measurement
-  {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-    config = function()
-      vim.g.startuptime_tries = 10
-    end,
-  },
-
   -- Surround text objects
   {
     "kylechui/nvim-surround",
