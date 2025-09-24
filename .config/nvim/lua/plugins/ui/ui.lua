@@ -66,7 +66,7 @@ return {
 
   -- Smooth animations
   {
-    "echasnovski/mini.animate",
+    "nvim-mini/mini.animate",
     event = "VeryLazy",
     opts = function(_, opts)
       opts.scroll = { enable = false } -- Disable scrolling animation
@@ -115,19 +115,6 @@ return {
     end,
   },
 
-  -- Zen Mode for focused coding
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      plugins = {
-        gitsigns = true,
-        tmux = true,
-        kitty = { enabled = false, font = "+2" },
-      },
-    },
-    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
-  },
   -- Show filename at the top of the buffer with incline.nvim
   {
     "b0o/incline.nvim",
