@@ -59,6 +59,7 @@ return {
         lsp_format = "fallback",
       },
       formatters_by_ft = {
+        scss = { "prettier" },
         lua = { "stylua" },
         fish = { "fish_indent" },
         sh = { "shfmt" },
