@@ -2,6 +2,7 @@ return {
   "hrsh7th/nvim-cmp",
 
   dependencies = {
+    "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-nvim-lsp",
     "L3MON4D3/LuaSnip",
     "rafamadriz/friendly-snippets",
@@ -75,9 +76,18 @@ return {
         { name = "luasnip", keyword_length = 2 },
         { name = "buffer", keyword_length = 3 },
         { name = "path" },
+        { name = "nvim_lsp_signature_help" },
       },
     })
 
+    cmp.setup.filetype({ "css", "scss", "less" }, {
+      sources = {
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip", keyword_length = 1, priority = 750 },
+        { name = "buffer", keyword_length = 3, priority = 500 },
+        { name = "path", priority = 250 },
+      },
+    })
     -- cmdline completion
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
