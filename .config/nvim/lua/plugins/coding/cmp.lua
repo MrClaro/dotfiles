@@ -2,39 +2,67 @@ return {
   "hrsh7th/nvim-cmp",
 
   dependencies = {
+    { "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" } },
+    { "mhartington/vim-angular2-snippets", lazy = true, ft = "htmlangular" },
+
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-nvim-lsp",
-    "L3MON4D3/LuaSnip",
-    "rafamadriz/friendly-snippets",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "saadparwaiz1/cmp_luasnip",
     "VonHeikemen/lsp-zero.nvim",
     "mlaursen/vim-react-snippets",
+    { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
   },
 
-  config = function()
+  opts = function(_, opts)
+    local format_kinds = opts.formatting.format
+
+    opts.formatting.format = function(entry, item)
+      format_kinds(entry, item)
+      return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+    end
+  end,
+
+  config = function(plugin, opts)
+    local cmp = require("cmp") -- Sem pcall para simplificar a lógica
+    local luasnip = require("luasnip")
+
     local cmp_action = require("lsp-zero").cmp_action()
+
+    require("luasnip.loaders.from_vscode").lazy_load()
+    require("luasnip").filetype_extend("htmlangular", { "html" })
+
+    local ok, custom_angular_snippets = pcall(require, "snippets.angular")
+
+    if ok then
+      if type(custom_angular_snippets) == "table" and not vim.tbl_isempty(custom_angular_snippets) then
+        vim.notify(
+          "Snippets do Angular carregados com sucesso! Total: " .. #custom_angular_snippets,
+          vim.log.levels.INFO
+        )
+
+        require("luasnip").add_snippets("htmlangular", custom_angular_snippets)
+      else
+        vim.notify(
+          "ERRO: Módulo de snippets 'snippets.angular' encontrado, mas está vazio ou não retornou uma tabela de snippets.",
+          vim.log.levels.WARN
+        )
+      end
+    else
+      vim.notify(
+        "FALHA CRÍTICA: Não foi possível encontrar ou carregar o módulo 'snippets.angular'. Verifique o caminho.",
+        vim.log.levels.ERROR
+      )
+      vim.notify("Detalhes do erro: " .. tostring(custom_angular_snippets), vim.log.levels.ERROR)
+    end
 
     require("vim-react-snippets").lazy_load()
     local config = require("vim-react-snippets.config")
     config.readonly_props = false
 
-    local ok_cmp, cmp = pcall(require, "cmp")
-    if not ok_cmp then
-      vim.notify("nvim-cmp cannot be loaded!", vim.log.levels.ERROR)
-      return
-    end
-
-    local ok_luasnip, luasnip = pcall(require, "luasnip")
-    if ok_luasnip then
-      require("luasnip.loaders.from_vscode").lazy_load()
-    else
-      vim.notify("LuaSnip cannot be loaded!", vim.log.levels.ERROR)
-    end
-
-    cmp.setup({
+    local cmp_config = vim.tbl_deep_extend("force", opts, {
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -71,6 +99,7 @@ return {
           end
         end, { "i", "s" }),
       }),
+
       sources = {
         { name = "nvim_lsp" },
         { name = "luasnip", keyword_length = 2 },
@@ -80,6 +109,8 @@ return {
       },
     })
 
+    cmp.setup(cmp_config)
+
     cmp.setup.filetype({ "css", "scss", "less" }, {
       sources = {
         { name = "nvim_lsp", priority = 1000 },
@@ -88,12 +119,10 @@ return {
         { name = "path", priority = 250 },
       },
     })
-    -- cmdline completion
+
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
+      sources = { { name = "buffer" } },
     })
 
     cmp.setup.cmdline(":", {
@@ -101,12 +130,7 @@ return {
       sources = cmp.config.sources({
         { name = "path" },
       }, {
-        {
-          name = "cmdline",
-          option = {
-            ignore_cmds = { "Man", "!" },
-          },
-        },
+        { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } },
       }),
     })
   end,
