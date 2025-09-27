@@ -86,50 +86,6 @@ return {
     end,
   },
 
-  -- Quarto for Literate Programming
-  -- {
-  --   "quarto-dev/quarto-nvim",
-  --   dependencies = {
-  --     "jmbuhr/otter.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   config = function()
-  --     require("quarto").setup()
-  --   end,
-  --   keys = {
-  --     name = "📚 Quarto",
-  --     { "<leader>qv", "<cmd>QuartoPreview<cr>", desc = "🖥️ Preview Quarto document" },
-  --     { "<leader>qc", "<cmd>QuartoClosePreview<cr>", desc = "❌ Close Quarto preview" },
-  --   },
-  -- },
-
-  -- Comment code easily
-  -- {
-  --   "tpope/vim-commentary",
-  --   keys = {
-  --     name = "💬 Comment",
-  --     { "<leader>rc", "<cmd>Commentary<cr>", desc = "📝 Toggle comment" },
-  --   },
-  -- },
-
-  -- Database Management with DBUI
-  -- {
-  --   "kristijanhusak/vim-dadbod-ui",
-  --   dependencies = {
-  --     { "tpope/vim-dadbod", lazy = true },
-  --     { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-  --   },
-  --   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
-  --   init = function()
-  --     vim.g.db_ui_use_nerd_fonts = 1
-  --   end,
-  --   keys = {
-  --     name = "🗄 Database",
-  --     { "<leader>lb", "<cmd>DBUI<cr>", desc = "📂 Open DBUI" },
-  --     { "<leader>lB", "<cmd>DBUIToggle<cr>", desc = "🔄 Toggle DBUI" },
-  --     { "<leader>la", "<cmd>DBUIAddConnection<cr>", desc = "➕ Add new DB connection" },
-  --   },
-  -- },
   {
     "nvzone/volt",
     { "nvzone/timerly", cmd = "TimerlyToggle" },
@@ -227,5 +183,15 @@ return {
         vim.tbl_extend("force", opts, { desc = "Disable color highlight" })
       )
     end,
+  },
+  {
+    {
+      "NvChad/nvim-colorizer.lua",
+      opts = {
+        user_default_options = {
+          tailwind = true,
+        },
+      },
+    },
   },
 }

@@ -64,14 +64,6 @@ return {
     },
   },
 
-  -- Smooth animations
-  {
-    "nvim-mini/mini.animate",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      opts.scroll = { enable = false } -- Disable scrolling animation
-    end,
-  },
   -- Buffer line
   {
     "akinsho/bufferline.nvim",
