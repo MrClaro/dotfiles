@@ -1,3 +1,4 @@
+-- Tmux integration for navigating between vim and tmux panes seamlessly
 return {
   "christoomey/vim-tmux-navigator",
   cmd = {

@@ -1,3 +1,4 @@
+-- COC Nvim Integration
 return {
   "neoclide/coc.nvim",
   branch = "release",

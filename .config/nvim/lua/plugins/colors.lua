@@ -1,5 +1,5 @@
 return {
-  -- 1. CCC.NVIM (Color Converter and Picker)
+  -- CCC.NVIM (Color Converter and Picker)
   {
     "uga-rosa/ccc.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -78,7 +78,7 @@ return {
     end,
   },
 
-  -- 2. NVIM-COLORIZER.LUA (Highlight colors in CSS, HTML, etc.)
+  -- NVIM-COLORIZER.LUA (Highlight colors in CSS, HTML, etc.)
   {
     "NvChad/nvim-colorizer.lua",
     opts = {

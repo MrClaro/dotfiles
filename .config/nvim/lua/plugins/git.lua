@@ -1,5 +1,5 @@
 return {
-  -- 1. LAZYGIT (TUI)
+  -- LAZYGIT (TUI)
   {
     "kdheepak/lazygit.nvim",
     lazy = true,
@@ -23,7 +23,7 @@ return {
     },
   },
 
-  -- 2. ADVANCED GIT SEARCH (depende de Fugitive/Rhubarb)
+  --  ADVANCED GIT SEARCH
   {
     "aaronhallaert/advanced-git-search.nvim",
     dependencies = {
@@ -32,7 +32,7 @@ return {
     },
   },
 
-  -- 3. GITSIGNS (Indicadores visuais de alteração)
+  -- GITSIGNS (Visual indicators of change)
   {
     "lewis6991/gitsigns.nvim",
     config = function()

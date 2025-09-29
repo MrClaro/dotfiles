@@ -1,7 +1,7 @@
 local use_ai = { "copilot", "supermaven" }
 
 return {
-  -- 1. SUPERMAVEN
+  --  SUPERMAVEN
   {
     enabled = vim.tbl_contains(use_ai, "supermaven"),
     "supermaven-inc/supermaven-nvim",
@@ -40,7 +40,7 @@ return {
     end,
   },
 
-  -- 2. SUPERMAVEN
+  -- COPILOT
   {
     enabled = vim.tbl_contains(use_ai, "copilot"),
     "github/copilot.vim",

@@ -34,37 +34,6 @@ return {
 
     local manager = require("utils.ai_manager")
 
-    require("luasnip.loaders.from_vscode").lazy_load()
-    require("luasnip").filetype_extend("htmlangular", { "html" })
-
-    local ok, custom_angular_snippets = pcall(require, "snippets.angular")
-
-    if ok then
-      if type(custom_angular_snippets) == "table" and not vim.tbl_isempty(custom_angular_snippets) then
-        vim.notify(
-          "Snippets do Angular carregados com sucesso! Total: " .. #custom_angular_snippets,
-          vim.log.levels.INFO
-        )
-
-        require("luasnip").add_snippets("htmlangular", custom_angular_snippets)
-      else
-        vim.notify(
-          "ERRO: Módulo de snippets 'snippets.angular' encontrado, mas está vazio ou não retornou uma tabela de snippets.",
-          vim.log.levels.WARN
-        )
-      end
-    else
-      vim.notify(
-        "FALHA CRÍTICA: Não foi possível encontrar ou carregar o módulo 'snippets.angular'. Verifique o caminho.",
-        vim.log.levels.ERROR
-      )
-      vim.notify("Detalhes do erro: " .. tostring(custom_angular_snippets), vim.log.levels.ERROR)
-    end
-
-    require("vim-react-snippets").lazy_load()
-    local config = require("vim-react-snippets.config")
-    config.readonly_props = false
-
     local cmp_config = vim.tbl_deep_extend("force", opts, {
       snippet = {
         expand = function(args)

@@ -1,3 +1,4 @@
+-- LuaSnip configuration with custom Angular snippets loading
 return {
   {
     "L3MON4D3/LuaSnip",

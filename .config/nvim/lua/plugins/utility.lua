@@ -1,5 +1,6 @@
+-- Utility plugins configuration for Neovim
 return {
-  -- 1. SESSION MANAGEMENT (Persisted)
+  --  SESSION MANAGEMENT (Persisted)
   {
     "olimorris/persisted.nvim",
     config = function()
@@ -18,7 +19,7 @@ return {
     end,
   },
 
-  -- 2. TODO COMMENTS (Visualização de TODO/FIXME)
+  --  TODO COMMENTS (TODO/FIXME view)
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -29,6 +30,6 @@ return {
     end,
   },
 
-  -- 4. WAKATIME (Rastreamento de tempo)
+  -- WAKATIME (Time tracking)
   { "wakatime/vim-wakatime", lazy = false },
 }

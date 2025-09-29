@@ -1,3 +1,4 @@
+-- luarocks
 return {
   {
     "vhyrro/luarocks.nvim",

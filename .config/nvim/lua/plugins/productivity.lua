@@ -1,6 +1,6 @@
--- Plugins focados em produtividade, refatoração, e navegação de símbolos.
+-- Plugins focused on productivity, refactoring, and symbol navigation.
 return {
-  -- 1. NEOGEN (Geração de Docstrings/Comentários)
+  --  NEOGEN (Docstring/Comment Generation)
   {
     "danymat/neogen",
     keys = {
@@ -15,7 +15,7 @@ return {
     opts = { snippet_engine = "luasnip" },
   },
 
-  -- 3. MINI.BRACKETED (Navegação com Colchetes)
+  --  MINI.BRACKETED (Bracket Navigation)
   {
     "nvim-mini/mini.bracketed",
     event = "BufReadPost",
@@ -30,7 +30,7 @@ return {
     end,
   },
 
-  -- 4. DIAL.NVIM (Incrementar/Decrementar Inteligente)
+  --  DIAL.NVIM (Increment/Decrement Values)
   {
     "monaqa/dial.nvim",
     keys = {
@@ -66,7 +66,7 @@ return {
     end,
   },
 
-  -- 5. SYMBOLS-OUTLINE (Navegação de Símbolos)
+  --  SYMBOLS-OUTLINE (Symbol Tree View)
   {
     "simrat39/symbols-outline.nvim",
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
@@ -74,7 +74,7 @@ return {
     opts = { position = "right" },
   },
 
-  -- 6. HARDTIME.NVIM (Melhoria de Hábitos)
+  --  HARDTIME.NVIM (Enforce Efficient Navigation)
   {
     "m4xshen/hardtime.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },

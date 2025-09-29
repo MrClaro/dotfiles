@@ -1,12 +1,11 @@
--- Plugins que adicionam funcionalidades específicas e ferramentas de edição.
+-- Plugins that add specific functionality and editing tools.
 
 return {
-  -- 1. FLASH.NVIM (Navegação Rápida)
+  -- FLASH.NVIM (Quick Navigation)
   {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {},
-    -- Mapeamentos de tecla específicos (zK, R, etc.)
     keys = {
       {
         "zk",
@@ -51,28 +50,7 @@ return {
     },
   },
 
-  -- 2. TYPST PREVIEW (Visualização de documentos Typst)
-  {
-    "chomosuke/typst-preview.nvim",
-    lazy = false,
-    version = "1.*",
-    opts = {
-      invert_colors = "always",
-    },
-    build = function()
-      require("typst-preview").update()
-    end,
-  },
-
-  -- 3. TYPST SYNTAX (Suporte à sintaxe Typst)
-  {
-    "kaarmu/typst.vim",
-    ft = "typst",
-    enabled = not vim.g.vscode,
-    lazy = false,
-  },
-
-  -- 4. NVIM-TS-AUTOTAG (Auto-fechamento e renomeação de tags HTML/XML)
+  -- NVIM-TS-AUTOTAG (Auto-closing and renaming of HTML/XML tags)
   {
     "windwp/nvim-ts-autotag",
     config = function()
@@ -89,7 +67,7 @@ return {
     end,
   },
 
-  -- 6. MARKDOWN-PREVIEW.NVIM (Pré-visualização de Markdown)
+  -- MARKDOWN-PREVIEW.NVIM (Markdown Preview)
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
@@ -98,7 +76,7 @@ return {
     end,
   },
 
-  -- 7. NVIM-SURROUND (Manipulação de Text Objects de Surround)
+  -- NVIM-SURROUND (Surround text objects)
   {
     "kylechui/nvim-surround",
     version = "^3.0.0",
