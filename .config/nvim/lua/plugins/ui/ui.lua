@@ -1,19 +1,19 @@
 return {
 
-  -- Messages, cmdline, and popup menu
+  -- 1. NOICE.NVIM (Messages, cmdline, and popup menu)
   {
     "folke/noice.nvim",
+    dependencies = "rcarriga/nvim-notify",
+
     opts = function(_, opts)
-      -- Add a rule to filter specific messages
       table.insert(opts.routes, {
         filter = {
           event = "notify",
-          find = "No information available", -- Ignore messages containing "No information available"
+          find = "No information available",
         },
         opts = { skip = true },
       })
 
-      -- Track window focus status
       local focused = true
       vim.api.nvim_create_autocmd("FocusGained", {
         callback = function()
@@ -26,26 +26,22 @@ return {
         end,
       })
 
-      -- Show notifications when the window is not focused
       table.insert(opts.routes, 1, {
         filter = {
           cond = function()
             return not focused
           end,
         },
-        view = "notify_send", -- Displays notifications in a native style
-        opts = { stop = false }, -- Allows other notifications to continue displaying
+        view = "notify_send",
+        opts = { stop = false },
       })
 
-      -- Command settings to show message history in noice.nvim
       opts.commands = {
         all = {
           view = "split",
           opts = { enter = true, format = "details" },
         },
       }
-
-      -- Enable border for LSP documentation
       opts.presets.lsp_doc_border = true
       opts.lsp = opts.lsp or {}
       opts.lsp.override = {
@@ -56,15 +52,15 @@ return {
     end,
   },
 
-  -- Notification system
+  -- 2. NVIM-NOTIFY (Notification system)
   {
     "rcarriga/nvim-notify",
     opts = {
-      timeout = 5000, -- Set notification timeout to 5 seconds
+      timeout = 5000,
     },
   },
 
-  -- Buffer line
+  -- 3. BUFFERLINE.NVIM (Buffer line)
   {
     "akinsho/bufferline.nvim",
     version = "*",
@@ -85,13 +81,13 @@ return {
       },
     },
   },
-  -- Status line customization with lualine
 
+  -- 4. LUALINE.NVIM (Status line customization)
   {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
       local Util = require("lazyvim.util")
-      local ai_status = require("plugins.coding.utils.ai_status")
+      local ai_status = require("utils.ai_status")
 
       opts.sections.lualine_c[1] = ai_status.get_ai_status
 
@@ -107,7 +103,7 @@ return {
     end,
   },
 
-  -- Show filename at the top of the buffer with incline.nvim
+  -- 5. INCLINE.NVIM (Show filename at the top of the buffer)
   {
     "b0o/incline.nvim",
     event = "BufReadPre",
@@ -135,7 +131,7 @@ return {
     end,
   },
 
-  -- Better diagnostics view
+  -- 6. TROUBLE.NVIM (Better diagnostics view)
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -157,7 +153,7 @@ return {
     end,
   },
 
-  -- Better file navigation
+  -- 7. HARPOON (Better file navigation)
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -172,6 +168,7 @@ return {
       vim.keymap.set("n", "<leader>hm", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end, { desc = "Harpoon Menu" })
+
       vim.keymap.set("n", "<leader>1", function()
         harpoon:list():select(1)
       end, { desc = "Harpoon 1" })
@@ -187,7 +184,7 @@ return {
     end,
   },
 
-  -- Color Picker
+  -- 8. TELESCOPE-COLOR-PICKER (Color Picker)
   {
     "exosyphon/telescope-color-picker.nvim",
     config = function()

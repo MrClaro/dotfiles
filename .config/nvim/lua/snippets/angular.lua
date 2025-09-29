@@ -11,22 +11,30 @@ return {
     t('"'),
   }),
 
-  -- @for Block
+  -- @for Block (Angular 17+)
   s("@for", {
     t("@for ("),
     i(1, "item of items; track $index"),
     t(") {"),
-    t({ "", "\t" }),
+    t({ "", "  " }),
     i(0),
     t({ "", "}" }),
   }),
 
-  -- @if Block
+  -- @if Block (Angular 17+)
   s("@if", {
     t("@if ("),
     i(1, "condicao"),
     t(") {"),
-    t({ "", "\t" }),
+    t({ "", "  " }),
+    i(0),
+    t({ "", "}" }),
+  }),
+
+  -- @else Block
+  s("@else", {
+    t("@else {"),
+    t({ "", "  " }),
     i(0),
     t({ "", "}" }),
   }),
@@ -44,52 +52,52 @@ return {
     i(1, "item"),
     t(" of "),
     i(2, "items"),
-    t('; track $index"'),
+    t('; trackBy: trackByFn"'),
   }),
 
-  -- ngclass
+  -- ngClass
   s("ngclass", {
     t('[ngClass]="{ '),
     i(1, "classe: condicao"),
     t(' }"'),
   }),
 
-  -- ngstyle
+  -- ngStyle
   s("ngstyle", {
     t('[ngStyle]="{ '),
-    i(1, "propriedade: valor"),
+    i(1, "'propriedade': valor"),
     t(' }"'),
   }),
 
-  -- click
+  -- Click event
   s("click", {
     t('(click)="'),
     i(1, "metodo()"),
     t('"'),
   }),
 
-  -- submit
+  -- Submit event
   s("submit", {
     t('(ngSubmit)="'),
     i(1, "metodo()"),
     t('"'),
   }),
 
-  -- formgroup
+  -- FormGroup
   s("formgroup", {
     t('[formGroup]="'),
     i(1, "meuForm"),
     t('"'),
   }),
 
-  -- formcontrol
+  -- FormControl
   s("formcontrol", {
-    t('[formControl]="'),
-    i(1, "meuControle"),
+    t('formControlName="'),
+    i(1, "nomeControle"),
     t('"'),
   }),
 
-  -- pipe
+  -- Pipe
   s("pipe", {
     t("{{ "),
     i(1, "valor"),
@@ -98,10 +106,41 @@ return {
     t(" }}"),
   }),
 
-  -- interpol
+  -- Interpolation
   s("interpol", {
     t("{{ "),
     i(1, "valor"),
     t(" }}"),
+  }),
+
+  -- Angular component
+  s("component", {
+    t("<"),
+    i(1, "app-component"),
+    t(" ["),
+    i(2, "propriedade"),
+    t(']="'),
+    i(3, "valor"),
+    t('"></'),
+    t("app-component"),
+    t(">"),
+  }),
+
+  -- Input property
+  s("input", {
+    t("["),
+    i(1, "propriedade"),
+    t(']="'),
+    i(2, "valor"),
+    t('"'),
+  }),
+
+  -- Output event
+  s("output", {
+    t("("),
+    i(1, "evento"),
+    t(')="'),
+    i(2, "handler($event)"),
+    t('"'),
   }),
 }

@@ -13,6 +13,8 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "VonHeikemen/lsp-zero.nvim",
     "mlaursen/vim-react-snippets",
+
+    "hrsh7th/cmp-copilot",
     { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
   },
 
@@ -26,10 +28,11 @@ return {
   end,
 
   config = function(plugin, opts)
-    local cmp = require("cmp") -- Sem pcall para simplificar a lógica
+    local cmp = require("cmp")
     local luasnip = require("luasnip")
-
     local cmp_action = require("lsp-zero").cmp_action()
+
+    local manager = require("utils.ai_manager")
 
     require("luasnip.loaders.from_vscode").lazy_load()
     require("luasnip").filetype_extend("htmlangular", { "html" })
@@ -101,11 +104,29 @@ return {
       }),
 
       sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip", keyword_length = 2 },
-        { name = "buffer", keyword_length = 3 },
-        { name = "path" },
-        { name = "nvim_lsp_signature_help" },
+        {
+          name = "supermaven",
+          priority = 1000,
+          option = {
+            enabled = function()
+              return manager.GetCurrentAIState() == 1
+            end,
+          },
+        },
+        {
+          name = "copilot",
+          priority = 1000,
+          option = {
+            enabled = function()
+              return manager.GetCurrentAIState() == 2
+            end,
+          },
+        },
+        { name = "nvim_lsp", priority = 900 },
+        { name = "luasnip", keyword_length = 2, priority = 800 },
+        { name = "buffer", keyword_length = 3, priority = 500 },
+        { name = "path", priority = 400 },
+        { name = "nvim_lsp_signature_help", priority = 300 },
       },
     })
 

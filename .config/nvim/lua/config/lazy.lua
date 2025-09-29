@@ -18,18 +18,8 @@ require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
-    { import = "plugins.coding" },
-    { import = "plugins.dap" },
-    --   { import = "plugins.formating" },
-    { import = "plugins.integrations" },
-    { import = "plugins.languages" },
-    { import = "plugins.test" },
+    { import = "plugins" },
     { import = "plugins.ui" },
-
-    {
-      "L3MON4D3/LuaSnip",
-      enabled = true,
-    },
   },
   defaults = {
     lazy = false,

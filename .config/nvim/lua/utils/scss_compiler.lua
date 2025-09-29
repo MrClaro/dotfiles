@@ -143,7 +143,4 @@ function M.setup(opts)
   -- vim.keymap.set("n", "<leader>cw", M.toggle_watch, { desc = "Toggle SCSS Watch Mode" })
 end
 
--- Auto-setup with default config if called directly
-M.setup()
-
 return M
