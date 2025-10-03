@@ -1,0 +1,27 @@
+return {
+  "mason-org/mason.nvim",
+  opts = {
+    ensure_installed = {
+      "angular-language-server",
+      "docker-compose-language-service",
+      "dockerfile-language-server",
+      "google-java-format",
+      "hadolint",
+      "java-debug-adapter",
+      "java-language-server",
+      "java-test",
+      "jdtls",
+      "json-lsp",
+      "kotlin-language-server",
+      "ktlint",
+      "lua-language-server",
+      "markdown-toc",
+      "markdownlint-cli2",
+      "marksman",
+      "prettierd",
+      "shfmt",
+      "stylua",
+      "vtsls",
+    },
+  },
+}
