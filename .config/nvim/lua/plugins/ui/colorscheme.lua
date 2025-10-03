@@ -4,22 +4,32 @@ return {
     lazy = true,
     name = "catppuccin",
     opts = {
+      flavour = "mocha",
       transparent_background = true,
+      term_colors = true,
+
+      styles = {
+        comments = { "italic" },
+        conditionals = { "italic" },
+        functions = {},
+        keywords = {},
+        variables = {},
+        numbers = {},
+      },
+
+      lsp_styles = {
+        underlines = {
+          errors = { "undercurl" },
+          hints = { "undercurl" },
+          warnings = { "undercurl" },
+          information = { "undercurl" },
+        },
+        inlay_hints = { background = true },
+      },
+
       integrations = {
-        aerial = true,
-        alpha = true,
-        cmp = true,
-        dashboard = true,
-        flash = true,
-        gitsigns = true,
-        headlines = true,
-        illuminate = true,
-        indent_blankline = { enabled = true },
-        leap = true,
-        lsp_trouble = true,
-        mason = true,
-        markdown = true,
-        mini = true,
+        treesitter = true,
+        semantic_tokens = true,
         native_lsp = {
           enabled = true,
           underlines = {
@@ -29,22 +39,21 @@ return {
             information = { "undercurl" },
           },
         },
-        navic = { enabled = true, custom_bg = "lualine" },
-        neotest = true,
+        cmp = true,
+        gitsigns = true,
+        mason = true,
         neotree = true,
-        noice = true,
-        semantic_tokens = true,
         telescope = true,
-        treesitter = true,
-        treesitter_context = true,
         which_key = true,
       },
     },
   },
+
   {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "catppuccin-mocha",
+      priority = 1000,
     },
   },
 }
