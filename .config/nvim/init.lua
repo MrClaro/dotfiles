@@ -3,8 +3,6 @@ if G == nil then
 end
 
 require("config.lazy")
-local scss_module = require("utils.scss_compiler")
-scss_module.setup()
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "htmlangular",
@@ -24,4 +22,11 @@ ls.config.set_config({
   history = true,
   updateevents = "TextChanged,TextChangedI",
   enable_autosnippets = true,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.component.html",
+  callback = function()
+    vim.diagnostic.disable(0)
+  end,
 })

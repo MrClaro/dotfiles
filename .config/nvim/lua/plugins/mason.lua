@@ -8,7 +8,6 @@ return {
       "google-java-format",
       "hadolint",
       "java-debug-adapter",
-      "java-language-server",
       "java-test",
       "jdtls",
       "json-lsp",
