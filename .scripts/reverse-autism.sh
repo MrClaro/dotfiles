@@ -46,9 +46,9 @@ install_arch_packages() {
 	fi
 
 	# Install packages
-	sudo pacman -S --needed ghostty ghostty-terminfo ghostty-shell-integration \
+	sudo pacman -S --needed  \
 		neovim tmux luarocks git ripgrep fzf thefuck ruby docker \
-		spotify-launcher lazygit eza || {
+		lazygit eza || {
 		print_error "Failed to install some packages"
 		return 1
 	}
@@ -113,6 +113,59 @@ install_fish() {
 
 	print_status "Fish shell installed successfully!"
 }
+
+install_fish_setup() {
+  install_fish || {
+    print_error "Failed to install fish"
+    return 1
+  }
+  
+  print_status "Installing Fisher"
+  fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; fisher install jorgebucaran/fisher" || {
+    print_error "Failed to install fisher"
+    return 1
+  }
+  
+  print_status "Installing NVM Fish"
+  fish -c "fisher install jorgebucaran/nvm.fish" || {
+    print_error "Failed to install NVM Fish"
+    return 1
+  }
+  
+  print_status "Installing Node LTS"
+  fish -c "nvm install v22.20.0" || {
+    print_error "Failed to install Node LTS"
+    return 1
+  }
+  
+  fish -c "set --universal nvm_default_version v22.20.0" || {
+    print_error "Failed to set default Node Version v22.20.0"
+    return 1
+  }
+  
+  # Verificar se SDKMAN está instalado
+  if [ ! -d "$HOME/.sdkman" ]; then
+    print_warning "SDKMAN not installed. Installing SDKMAN first..."
+    install_sdkman || {
+      print_error "Failed to install SDKMAN"
+      return 1
+    }
+  fi
+  
+  print_status "Installing SDKMAN for Fish"
+  fish -c "fisher install reitzig/sdkman-for-fish@v2.1.0" || {
+    print_error "Failed to install sdkman for fish"
+    return 1
+  }
+  
+  print_status "Installing Java 21"
+  fish -c "sdk install java 21.0.8-tem" || {
+    print_error "Failed to install java 21 tem"
+    return 1
+  }
+}
+
+
 
 install_shell_color_scripts() {
 	print_status "Installing Shell Color Scripts..."
@@ -217,7 +270,7 @@ install_all() {
 	install_arch_packages
 	install_postman
 	install_sdkman
-	install_fish
+	install_fish_setup  
 	install_shell_color_scripts
 	install_neovim_config
 	install_oh_my_posh
@@ -238,22 +291,22 @@ show_menu() {
 	echo "2) Postman"
 	echo "3) SDKMAN"
 	echo "4) Fish Shell"
-	echo "5) Shell Color Scripts"
-	echo "6) My NeoVim Config"
-	echo "7) Oh-My-Posh"
-	echo "8) Homebrew"
-	echo "9) Install All"
-	echo "10) Exit"
-
+	echo "5) Fish Setup"
+	echo "6) Shell Color Scripts"
+	echo "7) My NeoVim Config"
+	echo "8) Oh-My-Posh"
+	echo "9) Homebrew"
+	echo "10) Install All"
+	echo "11) Exit"
+	echo "" 
 }
 
 main() {
-	# Check if running on Arch-based system
 	check_arch
 
 	while true; do
 		show_menu
-		echo -n "Enter your choice [1-10]: "
+		echo -n "Enter your choice [1-11]: " 
 		read -r choice
 
 		case $choice in
@@ -261,17 +314,18 @@ main() {
 		2) install_postman ;;
 		3) install_sdkman ;;
 		4) install_fish ;;
-		5) install_shell_color_scripts ;;
-		6) install_neovim_config ;;
-		7) install_oh_my_posh ;;
-		8) install_homebrew ;;
-		9) install_all ;;
-		10)
+		5) install_fish_setup ;;
+		6) install_shell_color_scripts ;;
+		7) install_neovim_config ;;
+		8) install_oh_my_posh ;;
+		9) install_homebrew ;;
+		10) install_all ;;
+		11)
 			print_status "Goodbye!"
 			exit 0
 			;;
 		*)
-			print_error "Invalid option. Please choose 1-10."
+			print_error "Invalid option. Please choose 1-11." 
 			;;
 		esac
 
