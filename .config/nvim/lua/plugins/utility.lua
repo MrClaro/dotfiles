@@ -32,4 +32,18 @@ return {
 
   -- WAKATIME (Time tracking)
   { "wakatime/vim-wakatime", lazy = false },
+
+  -- AUTOPAIRS
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+  },
+
+  -- TYPESCRIPT TOOLS
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
 }

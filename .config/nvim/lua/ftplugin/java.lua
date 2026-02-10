@@ -1,0 +1,27 @@
+-- local jdtls = require("jdtls")
+-- local home = os.getenv("HOME")
+--
+-- local lombok_path = home .. "/.m2/repository/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar"
+-- local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+-- local workspace_dir = home .. "/.cache/jdtls/workspace/" .. project_name
+--
+-- local config = {
+--   cmd = {
+--     "jdtls",
+--     "-data",
+--     workspace_dir,
+--
+--     "--jvm-arg=-javaagent:" .. lombok_path,
+--   },
+--
+--   root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml" }),
+--
+--   settings = {
+--     java = {
+--       signatureHelp = { enabled = true },
+--       contentProvider = { preferred = "fernflower" },
+--     },
+--   },
+-- }
+--
+-- jdtls.start_or_attach(config)

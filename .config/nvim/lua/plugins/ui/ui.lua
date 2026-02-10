@@ -85,22 +85,6 @@ return {
   -- 4. LUALINE.NVIM (Status line customization)
   {
     "nvim-lualine/lualine.nvim",
-    opts = function(_, opts)
-      local Util = require("lazyvim.util")
-      local ai_status = require("utils.ai_status")
-
-      opts.sections.lualine_c[1] = ai_status.get_ai_status
-
-      opts.sections.lualine_c[4] = {
-        Util.lualine.pretty_path({
-          length = 0,
-          relative = "cwd",
-          modified_hl = "MatchParen",
-          directory_hl = "",
-          filename_hl = "Bold",
-        }),
-      }
-    end,
   },
 
   -- 5. INCLINE.NVIM (Show filename at the top of the buffer)

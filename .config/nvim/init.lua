@@ -18,6 +18,8 @@ local ls = require("luasnip")
 
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/snippets/" })
 
+vim.opt.runtimepath:append("/mnt/user-data/outputs/beru.nvim")
+
 ls.config.set_config({
   history = true,
   updateevents = "TextChanged,TextChangedI",

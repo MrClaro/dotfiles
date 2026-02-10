@@ -75,15 +75,15 @@ return {
   },
 
   --  HARDTIME.NVIM (Enforce Efficient Navigation)
-  {
-    "m4xshen/hardtime.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    opts = {
-      java = {
-        enabled = true,
-        show_dependencies = true,
-        show_implementations = true,
-      },
-    },
-  },
+  -- {
+  --   "m4xshen/hardtime.nvim",
+  --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+  --   opts = {
+  --     java = {
+  --       enabled = true,
+  --       show_dependencies = true,
+  --       show_implementations = true,
+  --     },
+  --   },
+  -- },
 }
