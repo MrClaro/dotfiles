@@ -123,8 +123,8 @@ return {
           base = "#000000",
           mantle = "#010101",
           crust = "#020202",
-          red = "#ff0000",
-          maroon = "#e64553",
+          --     red = "#ff0000",
+          --     maroon = "#e64553",
         },
       },
 

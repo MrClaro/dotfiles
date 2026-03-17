@@ -77,19 +77,19 @@ return {
   },
 
   -- NVIM-SURROUND (Surround text objects)
-  {
-    "kylechui/nvim-surround",
-    version = "^3.0.0",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        keymaps = {
-          normal = "gs",
-          visual = "gS",
-          delete = "ds",
-          change = "cs",
-        },
-      })
-    end,
-  },
+  --   {
+  --     "kylechui/nvim-surround",
+  --     version = "^3.0.0",
+  --     event = "VeryLazy",
+  --     config = function()
+  --       require("nvim-surround").setup({
+  --         keymaps = {
+  --           normal = "gs",
+  --           visual = "gS",
+  --           delete = "ds",
+  --           change = "cs",
+  --         },
+  --       })
+  --     end,
+  --   },
 }

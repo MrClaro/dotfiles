@@ -2,7 +2,7 @@ return {
   -- CCC.NVIM (Color Converter and Picker)
   {
     "uga-rosa/ccc.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "VeryLazy" },
     config = function()
       local ccc = require("ccc")
 
@@ -24,7 +24,7 @@ return {
         },
         recognize = { input = true, output = true },
         highlighter = {
-          auto_enable = true,
+          auto_enable = false,
           max_byte = 100 * 1024,
           update_insert = true,
           filetypes = {
@@ -50,41 +50,18 @@ return {
       })
 
       local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", vim.tbl_extend("force", opts, { desc = "Color picker" }))
-      vim.keymap.set(
-        "n",
-        "<leader>cc",
-        "<cmd>CccConvert<cr>",
-        vim.tbl_extend("force", opts, { desc = "Convert color" })
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>ct",
-        "<cmd>CccHighlighterToggle<cr>",
-        vim.tbl_extend("force", opts, { desc = "Toggle color highlight" })
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>ce",
-        "<cmd>CccHighlighterEnable<cr>",
-        vim.tbl_extend("force", opts, { desc = "Enable color highlight" })
-      )
-      vim.keymap.set(
-        "n",
-        "<leader>cd",
-        "<cmd>CccHighlighterDisable<cr>",
-        vim.tbl_extend("force", opts, { desc = "Disable color highlight" })
-      )
+      vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Color picker" })
+      vim.keymap.set("n", "<leader>cc", "<cmd>CccConvert<cr>", { desc = "Convert color" })
     end,
   },
 
   -- NVIM-COLORIZER.LUA (Highlight colors in CSS, HTML, etc.)
-  {
-    "NvChad/nvim-colorizer.lua",
-    opts = {
-      user_default_options = {
-        tailwind = true,
-      },
-    },
-  },
+  --   {
+  --     "NvChad/nvim-colorizer.lua",
+  --     opts = {
+  --       user_default_options = {
+  --         tailwind = true,
+  --       },
+  --     },
+  --   },
 }
