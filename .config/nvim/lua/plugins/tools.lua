@@ -1,5 +1,4 @@
 -- Plugins that add specific functionality and editing tools.
-
 return {
   -- FLASH.NVIM (Quick Navigation)
   {
@@ -66,30 +65,4 @@ return {
       })
     end,
   },
-
-  -- MARKDOWN-PREVIEW.NVIM (Markdown Preview)
-  {
-    "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-  },
-
-  -- NVIM-SURROUND (Surround text objects)
-  --   {
-  --     "kylechui/nvim-surround",
-  --     version = "^3.0.0",
-  --     event = "VeryLazy",
-  --     config = function()
-  --       require("nvim-surround").setup({
-  --         keymaps = {
-  --           normal = "gs",
-  --           visual = "gS",
-  --           delete = "ds",
-  --           change = "cs",
-  --         },
-  --       })
-  --     end,
-  --   },
 }

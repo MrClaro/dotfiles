@@ -5,7 +5,6 @@ return {
     event = { "VeryLazy" },
     config = function()
       local ccc = require("ccc")
-
       ccc.setup({
         default_color = "#000000",
         bar_char = "█",
@@ -48,20 +47,8 @@ return {
           excludes = { "lazy", "mason", "help", "neo-tree" },
         },
       })
-
-      local opts = { noremap = true, silent = true }
       vim.keymap.set("n", "<leader>cp", "<cmd>CccPick<cr>", { desc = "Color picker" })
       vim.keymap.set("n", "<leader>cc", "<cmd>CccConvert<cr>", { desc = "Convert color" })
     end,
   },
-
-  -- NVIM-COLORIZER.LUA (Highlight colors in CSS, HTML, etc.)
-  --   {
-  --     "NvChad/nvim-colorizer.lua",
-  --     opts = {
-  --       user_default_options = {
-  --         tailwind = true,
-  --       },
-  --     },
-  --   },
 }

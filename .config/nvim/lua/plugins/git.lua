@@ -16,14 +16,13 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     keys = {
-      name = "🔧 Git",
-      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "📘 Open LazyGit" },
-      { "<leader>lf", "<cmd>LazyGitFilter<cr>", desc = "🔍 Filter Git changes" },
-      { "<leader>lc", "<cmd>LazyGitConfig<cr>", desc = "⚙️ Open LazyGit Config" },
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+      { "<leader>lf", "<cmd>LazyGitFilter<cr>", desc = "Filter Git changes" },
+      { "<leader>lc", "<cmd>LazyGitConfig<cr>", desc = "Open LazyGit Config" },
     },
   },
 
-  --  ADVANCED GIT SEARCH
+  -- ADVANCED GIT SEARCH
   {
     "aaronhallaert/advanced-git-search.nvim",
     dependencies = {

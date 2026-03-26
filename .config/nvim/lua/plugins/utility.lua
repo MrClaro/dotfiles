@@ -1,6 +1,6 @@
 -- Utility plugins configuration for Neovim
 return {
-  --  SESSION MANAGEMENT (Persisted)
+  -- SESSION MANAGEMENT
   {
     "olimorris/persisted.nvim",
     config = function()
@@ -19,7 +19,7 @@ return {
     end,
   },
 
-  --  TODO COMMENTS (TODO/FIXME view)
+  -- TODO COMMENTS (TODO/FIXME view)
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },

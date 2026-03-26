@@ -1,16 +1,11 @@
 return {
-
   -- 1. NOICE.NVIM (Messages, cmdline, and popup menu)
   {
     "folke/noice.nvim",
     dependencies = "rcarriga/nvim-notify",
-
     opts = function(_, opts)
       table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          find = "No information available",
-        },
+        filter = { event = "notify", find = "No information available" },
         opts = { skip = true },
       })
 
@@ -37,10 +32,7 @@ return {
       })
 
       opts.commands = {
-        all = {
-          view = "split",
-          opts = { enter = true, format = "details" },
-        },
+        all = { view = "split", opts = { enter = true, format = "details" } },
       }
       opts.presets.lsp_doc_border = true
       opts.lsp = opts.lsp or {}
@@ -55,9 +47,7 @@ return {
   -- 2. NVIM-NOTIFY (Notification system)
   {
     "rcarriga/nvim-notify",
-    opts = {
-      timeout = 5000,
-    },
+    opts = { timeout = 5000 },
   },
 
   -- 3. BUFFERLINE.NVIM (Buffer line)
@@ -82,12 +72,10 @@ return {
     },
   },
 
-  -- 4. LUALINE.NVIM (Status line customization)
-  {
-    "nvim-lualine/lualine.nvim",
-  },
+  -- 4. LUALINE.NVIM (Status line)
+  { "nvim-lualine/lualine.nvim" },
 
-  -- 5. INCLINE.NVIM (Show filename at the top of the buffer)
+  -- 5. INCLINE.NVIM (Show filename at top of buffer)
   {
     "b0o/incline.nvim",
     event = "BufReadPre",
@@ -95,10 +83,7 @@ return {
     config = function()
       local helpers = require("incline.helpers")
       require("incline").setup({
-        window = {
-          padding = 0,
-          margin = { horizontal = 0 },
-        },
+        window = { padding = 0, margin = { horizontal = 0 } },
         render = function(props)
           local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
           local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
@@ -134,45 +119,6 @@ return {
         "<cmd>TroubleToggle document_diagnostics<cr>",
         { desc = "Document Diagnostics" }
       )
-    end,
-  },
-
-  -- 7. HARPOON (Better file navigation)
-  -- {
-  --   "ThePrimeagen/harpoon",
-  --   branch = "harpoon2",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   config = function()
-  --     local harpoon = require("harpoon")
-  --     harpoon:setup()
-  --
-  --     vim.keymap.set("n", "<leader>ha", function()
-  --       harpoon:list():add()
-  --     end, { desc = "Add to Harpoon" })
-  --     vim.keymap.set("n", "<leader>hm", function()
-  --       harpoon.ui:toggle_quick_menu(harpoon:list())
-  --     end, { desc = "Harpoon Menu" })
-  --
-  --     vim.keymap.set("n", "<leader>1", function()
-  --       harpoon:list():select(1)
-  --     end, { desc = "Harpoon 1" })
-  --     vim.keymap.set("n", "<leader>2", function()
-  --       harpoon:list():select(2)
-  --     end, { desc = "Harpoon 2" })
-  --     vim.keymap.set("n", "<leader>3", function()
-  --       harpoon:list():select(3)
-  --     end, { desc = "Harpoon 3" })
-  --     vim.keymap.set("n", "<leader>4", function()
-  --       harpoon:list():select(4)
-  --     end, { desc = "Harpoon 4" })
-  --   end,
-  -- },
-
-  -- 8. TELESCOPE-COLOR-PICKER (Color Picker)
-  {
-    "exosyphon/telescope-color-picker.nvim",
-    config = function()
-      vim.keymap.set("n", "<leader>uC", "<cmd>Telescope colors<CR>", { desc = "Telescope Color Picker" })
     end,
   },
 }

@@ -27,13 +27,13 @@ return {
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
         header = [[
-ooo        ooooo                .oooooo.   oooo
-`88.       .888'               d8P'  `Y8b  `888
- 888b     d'888  oooo d8b     888           888   .oooo.   oooo d8b  .ooooo.
- 8 Y88. .P  888  `888""8P     888           888  `P  )88b  `888""8P d88' `88b
- 8  `888'   888   888         888           888   .oP"888   888     888   888
- 8    Y     888   888     .o. `88b    ooo   888  d8(  888   888     888   888
-o8o        o888o d888b    Y8P  `Y8bood8P'  o888o `Y888""8o d888b    `Y8bod8P'
+      ooo        ooooo                .oooooo.   oooo
+      `88.       .888'               d8P'  `Y8b  `888
+       888b     d'888  oooo d8b     888           888   .oooo.   oooo d8b  .ooooo.
+       8 Y88. .P  888  `888""8P     888           888  `P  )88b  `888""8P d88' `88b
+       8  `888'   888   888         888           888   .oP"888   888     888   888
+       8    Y     888   888     .o. `88b    ooo   888  d8(  888   888     888   888
+      o8o        o888o d888b    Y8P  `Y8bood8P'  o888o `Y888""8o d888b    `Y8bod8P'
 ]],
       },
       formats = {

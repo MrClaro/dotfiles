@@ -1,6 +1,6 @@
 -- Plugins focused on productivity, refactoring, and symbol navigation.
 return {
-  --  NEOGEN (Docstring/Comment Generation)
+  -- NEOGEN (Docstring/Comment Generation)
   {
     "danymat/neogen",
     keys = {
@@ -15,7 +15,7 @@ return {
     opts = { snippet_engine = "luasnip" },
   },
 
-  --  MINI.BRACKETED (Bracket Navigation)
+  -- MINI.BRACKETED (Bracket Navigation)
   {
     "nvim-mini/mini.bracketed",
     event = "BufReadPost",
@@ -30,7 +30,7 @@ return {
     end,
   },
 
-  --  DIAL.NVIM (Increment/Decrement Values)
+  -- DIAL.NVIM (Increment/Decrement Values)
   {
     "monaqa/dial.nvim",
     keys = {
@@ -66,24 +66,11 @@ return {
     end,
   },
 
-  --  SYMBOLS-OUTLINE (Symbol Tree View)
+  -- SYMBOLS-OUTLINE (Symbol Tree View)
   {
     "simrat39/symbols-outline.nvim",
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
     cmd = "SymbolsOutline",
     opts = { position = "right" },
   },
-
-  --  HARDTIME.NVIM (Enforce Efficient Navigation)
-  -- {
-  --   "m4xshen/hardtime.nvim",
-  --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-  --   opts = {
-  --     java = {
-  --       enabled = true,
-  --       show_dependencies = true,
-  --       show_implementations = true,
-  --     },
-  --   },
-  -- },
 }

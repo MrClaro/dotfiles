@@ -1,5 +1,4 @@
 return {
-
   {
     "github/copilot.vim",
     event = "InsertEnter",
@@ -16,7 +15,6 @@ return {
       vim.keymap.set("i", "<C-j>", "<Plug>(copilot-accept-word)", { desc = "Accept word" })
       vim.keymap.set("i", "<C-l>", "<Plug>(copilot-next)", { desc = "Next suggestion" })
       vim.keymap.set("i", "<C-h>", "<Plug>(copilot-previous)", { desc = "Previous suggestion" })
-
       vim.keymap.set("n", "<leader>cp", ":Copilot toggle<CR>", { desc = "Toggle Copilot" })
 
       vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#963e7c", italic = true })
